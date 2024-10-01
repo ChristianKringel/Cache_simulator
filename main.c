@@ -25,6 +25,7 @@ typedef struct
     int capacity;
     int compulsory;
     int conflict;
+    int hits;
 } CacheMisses;
 
 typedef struct
@@ -38,21 +39,13 @@ typedef struct
     unsigned int totalAccesses;
 } Cache;
 
-// variaveis globais
-unsigned long int cache_accesses = 0;
-// unsigned long int cache_hits = 0;
-int contadorFifo = 0;
-unsigned long int cache_misses = 0;
-unsigned long int cache_writebacks = 0;
-unsigned long int cache_reads = 0;
-unsigned long int cache_writes = 0;
+
 bool debug = true;
 
-void readFile(Cache *cache, const char *file, int *missCount, unsigned long int *totalAcess, int *cache_hits);
+void readFile(Cache *cache, const char *file);
 int getTag(int address, int block_size, int num_sets);
 int getIndex(int address, int block_size, int num_sets);
-// void processAddress(Cache *cache, CacheAddress *cacheAddress, int adress, CacheMisses *missCount, int replacment, unsigned long int *totalAcess);
-void processAddress(Cache *cache, int address, int *missCount, unsigned long int *totalAcess, int *cache_hits);
+void processAddress(Cache *cache, int address);
 Cache *initializeCache(Cache *cache, unsigned int associativity,
                        unsigned int block_size, unsigned int nsets, char substitution_policy);
 CacheAddress *freeCacheAddress(CacheAddress *cache_address);
@@ -84,14 +77,7 @@ int main(int argc, char *argv[])
     substitution_policy = toupper(argv[4][0]);
     exit_flag = atoi(argv[5]);
     char *trace_file = argv[6];
-    /*
-    cache->nsets = atoi(argv[1]); // atoi converte string para inteiro
-    cache->block_size = atoi(argv[2]);
-    cache->associativity = atoi(argv[3]);
-    cache->substitution_policy = toupper(argv[4][0]);
-    int exit_flag = atoi(argv[5]);
-    char *trace_file = argv[6];
-    */
+
     /* testando os parametros passados na chamada do codigo*/
     if (debug)
     {
@@ -108,14 +94,14 @@ int main(int argc, char *argv[])
     cache = initializeCache(cache, associativity, block_size, nsets, substitution_policy);
 
     printf("\n\n");
-    // void readFile(Cache *cache, CacheAddress *CacheAddress, const char *file, int *missCount, int replacment, unsigned long int *totalAcess, int *cache_hits)
-    readFile(cache, trace_file, &missCount, &totalAcess, &cacheHits);
+    readFile(cache, trace_file);
 
     float missRate = (float)cache->misses->totalMisses / cache->totalAccesses;
-    float hitRate = (float)cacheHits / cache->totalAccesses;
-    printf("Total de acessos: %lu\n", cache->totalAccesses);
+    float hitRate = (float)cache->misses->hits / cache->totalAccesses;
+    printf("Total de acessos: %u\n", cache->totalAccesses);
     printf("Total de hits: %.4f\n", hitRate);
     printf("Total de misses: %.4f\n", missRate);
+    free(cache);
     return 0;
 }
 
@@ -134,6 +120,13 @@ Cache *initializeCache(Cache *cache, unsigned int associativity, unsigned int bl
         return NULL;
     }
 
+    cache->misses = (CacheMisses *)malloc(sizeof(CacheMisses));
+    if (cache->misses == NULL)
+    {
+        printf("ERRO: Problema ao alocar memoria para os misses\n");
+        return NULL;
+    }
+
     cache->associativity = associativity;
     cache->block_size = block_size;
     cache->nsets = nsets;
@@ -141,27 +134,28 @@ Cache *initializeCache(Cache *cache, unsigned int associativity, unsigned int bl
     cache->misses->totalMisses = 0;
     cache->misses->capacity = 0;
     cache->misses->compulsory = 0;
+    cache->misses->conflict = 0;
+    cache->misses->hits = 0;
 
     if (!powerOfTwo(nsets))
     {
         printf("ERRO: o numero de conjuntos deve ser uma potencia de 2\n");
-        free(cache); // Liberar memória antes de retornar
+        free(cache);
         return NULL;
     }
 
     if (!powerOfTwo(block_size))
     {
         printf("ERRO: tamanho do bloco deve ser uma potencia de 2\n");
-        free(cache); // Liberar memória antes de retornar
+        free(cache);
         return NULL;
     }
 
-    // Alocar memória para cache_address
     cache->cache_address = (CacheAddress *)malloc(nsets * associativity * sizeof(CacheAddress));
     if (cache->cache_address == NULL)
     {
         printf("ERRO: Problema ao alocar memoria para os endereços da cache\n");
-        free(cache); // Liberar memória antes de retornar
+        free(cache);
         return NULL;
     }
 
@@ -197,7 +191,7 @@ CacheAddress *freeCacheAddress(CacheAddress *cache_address)
     return cache_address;
 }
 
-void readFile(Cache *cache, const char *file, int *missCount, unsigned long int *totalAcess, int *cache_hits)
+void readFile(Cache *cache, const char *file)
 {
     FILE *fp = fopen(file, "rb");
     int endereco;
@@ -210,25 +204,23 @@ void readFile(Cache *cache, const char *file, int *missCount, unsigned long int 
 
     while (fread(&endereco, sizeof(int), 1, fp) == 1)
     {
+        /*
         if (fread(&endereco, sizeof(int), 1, fp) != 1)
         {
             printf("ERRO: Não foi possível ler o endereço corretamente\n");
-        }
+        }*/
 
         endereco = __builtin_bswap32(endereco);
-        printf("Endereco: %d\n", endereco);
-        processAddress(cache, endereco, missCount, totalAcess, cache_hits);
+        //printf("Endereco: %d\n", endereco);
+        processAddress(cache, endereco);
     }
     // printf("\nTotal de acessos: %lu\n", cache_accesses);
 
     fclose(fp);
 }
 
-void processAddress(Cache *cache, int address, int *missCount, unsigned long int *totalAcess, int *cache_hits)
+void processAddress(Cache *cache, int address)
 {
-    // int index = getIndex(address, cache->block_size, cache->nsets);
-    // int tag = getTag(address, cache->block_size, cache->nsets);
-
     // calculo padrao usando log
     unsigned int offset_bits = log2(cache->block_size);
     unsigned int index_bits = log2(cache->nsets);
@@ -237,29 +229,8 @@ void processAddress(Cache *cache, int address, int *missCount, unsigned long int
     int medio = pow(2, index_bits);
     uint32_t index = (address >> offset_bits) & (medio - 1);
     // Mascara, fazendo um AND bit a bit
-    /*
-    unsigned int offset_mask = (1 << offset_bits) - 1;
-    unsigned int index_mask = (1 << index_bits) - 1;
-
-    // Formata com base no padrao mostrado no codigo do professor
-    uint32_t offset = address & offset_mask;
-    uint32_t index = (address >> offset_bits) & index_mask;
-    uint32_t tag = address >> (offset_bits + index_bits);
-    */
-    /*
-        tag = endereço >> (n_bits_offset + n_bits_indice);
-        indice = (endereço >> n_bits_offset) & (2^n_bits_indice -1)
-        */
-
-    // printf("\nTag: %d\n", tag);
-    // printf("Index: %d\n", index);
-    // printf("Offset: %d\n", offset);
     int lineIndex = index * cache->associativity;
     int indexTest = index % cache->nsets;
-
-    // tag = offset;
-    //  inicio da cache
-    // CacheAddress *set = &cacheAddress[index * cache->associativity];
 
     // Ve se eh hit
     bool isHit = false;
@@ -269,7 +240,7 @@ void processAddress(Cache *cache, int address, int *missCount, unsigned long int
         if (cache->cache_address[i].validade && cache->cache_address[i].tag == tag)
         {
             isHit = true;
-            (*cache_hits)++;
+            cache->misses->hits++;
             break;
         }
     }
@@ -293,6 +264,7 @@ void processAddress(Cache *cache, int address, int *missCount, unsigned long int
 
         // se nao tiver linha vazia usa o replace
         int indexReplace = (emptyLine != -1) ? emptyLine : indexForReplace(cache, index);
+        //int indexReplace = indexForReplace(cache, index);
         if (cache->substitution_policy == 'F')
         {
             cache->cache_address[indexReplace].itWasAdded = cache->totalAccesses;
@@ -326,9 +298,7 @@ int indexForReplace(Cache *cache, int index)
     }
     else if (cache->substitution_policy == 'F')
     {
-        contadorFifo++;
         return FIFO(cache, index);
-        // return 0;
     }
     else
     {
@@ -375,7 +345,7 @@ void printFlag1(Cache *cache, int missCount, unsigned long int totalAcess, int c
     printf("Taxa de misses: %.4f\n", (float)missCount / totalAcess);
 }
 
-void printFlag2(Cache *cache, int missCount, unsigned long int totalAcess, int cache_hits)
+void printFlag0(Cache *cache, int missCount, unsigned long int totalAcess, int cache_hits)
 {
     printf("%lu %.4f %.4f\n", totalAcess, (float)cache_hits / totalAcess, (float)missCount / totalAcess);
 }
