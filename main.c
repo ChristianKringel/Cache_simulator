@@ -14,8 +14,18 @@ typedef struct
     unsigned int tag;
     unsigned int index;
     unsigned int offset;
+    unsigned int itWasAdded;
+    // unsigned int lastAccessedAddress;
     bool validade;
 } CacheAddress;
+
+typedef struct
+{
+    int totalMisses;
+    int capacity;
+    int compulsory;
+    int conflict;
+} CacheMisses;
 
 typedef struct
 {
@@ -24,18 +34,14 @@ typedef struct
     unsigned int nsets;         // numero de conjuntos
     char substitution_policy;   // politica de substituicao
     CacheAddress *cache_address;
+    CacheMisses *misses;
+    unsigned int totalAccesses;
 } Cache;
-
-typedef struct
-{
-    int capacity;
-    int compulsory;
-    int conflict;
-} CacheMisses;
 
 // variaveis globais
 unsigned long int cache_accesses = 0;
 // unsigned long int cache_hits = 0;
+int contadorFifo = 0;
 unsigned long int cache_misses = 0;
 unsigned long int cache_writebacks = 0;
 unsigned long int cache_reads = 0;
@@ -53,7 +59,7 @@ CacheAddress *freeCacheAddress(CacheAddress *cache_address);
 int indexForReplace(Cache *cache, int index);
 static bool powerOfTwo(const unsigned int value);
 // int LRU(Cache *cache, int index);
-// int FIFO(Cache *cache, int index);
+int FIFO(Cache *cache, int index);
 int RANDOM(Cache *cache, int index);
 
 int main(int argc, char *argv[])
@@ -105,9 +111,9 @@ int main(int argc, char *argv[])
     // void readFile(Cache *cache, CacheAddress *CacheAddress, const char *file, int *missCount, int replacment, unsigned long int *totalAcess, int *cache_hits)
     readFile(cache, trace_file, &missCount, &totalAcess, &cacheHits);
 
-    float missRate = (float)missCount / totalAcess;
-    float hitRate = (float)cacheHits / totalAcess;
-    printf("Total de acessos: %lu\n", totalAcess);
+    float missRate = (float)cache->misses->totalMisses / cache->totalAccesses;
+    float hitRate = (float)cacheHits / cache->totalAccesses;
+    printf("Total de acessos: %lu\n", cache->totalAccesses);
     printf("Total de hits: %.4f\n", hitRate);
     printf("Total de misses: %.4f\n", missRate);
     return 0;
@@ -132,6 +138,9 @@ Cache *initializeCache(Cache *cache, unsigned int associativity, unsigned int bl
     cache->block_size = block_size;
     cache->nsets = nsets;
     cache->substitution_policy = substitution_policy;
+    cache->misses->totalMisses = 0;
+    cache->misses->capacity = 0;
+    cache->misses->compulsory = 0;
 
     if (!powerOfTwo(nsets))
     {
@@ -161,11 +170,11 @@ Cache *initializeCache(Cache *cache, unsigned int associativity, unsigned int bl
     {
         cache->cache_address[i].tag = 0;
         cache->cache_address[i].validade = false;
+        cache->cache_address[i].itWasAdded = 0;
     }
 
     return cache;
 }
-
 
 Cache *freeCache(Cache *cache)
 {
@@ -201,8 +210,13 @@ void readFile(Cache *cache, const char *file, int *missCount, unsigned long int 
 
     while (fread(&endereco, sizeof(int), 1, fp) == 1)
     {
+        if (fread(&endereco, sizeof(int), 1, fp) != 1)
+        {
+            printf("ERRO: Não foi possível ler o endereço corretamente\n");
+        }
+
         endereco = __builtin_bswap32(endereco);
-        // printf("Endereco: %d\n", endereco);
+        printf("Endereco: %d\n", endereco);
         processAddress(cache, endereco, missCount, totalAcess, cache_hits);
     }
     // printf("\nTotal de acessos: %lu\n", cache_accesses);
@@ -263,7 +277,8 @@ void processAddress(Cache *cache, int address, int *missCount, unsigned long int
     if (!isHit)
     {
         // se n eh hit conta como miss
-        (*missCount)++;
+        //(*missCount)++;
+        cache->misses->totalMisses++;
 
         // Procura por uma linha vazia no conjunto
         int emptyLine = -1;
@@ -278,14 +293,22 @@ void processAddress(Cache *cache, int address, int *missCount, unsigned long int
 
         // se nao tiver linha vazia usa o replace
         int indexReplace = (emptyLine != -1) ? emptyLine : indexForReplace(cache, index);
+        if (cache->substitution_policy == 'F')
+        {
+            cache->cache_address[indexReplace].itWasAdded = cache->totalAccesses;
+        }
 
+        else if (cache->substitution_policy == 'L')
+        {
+            // cache->cache_address[indexReplace].counterFifo = contadorFifo;
+        }
         // Substitui a linha
         cache->cache_address[indexReplace].tag = tag;
         cache->cache_address[indexReplace].validade = true;
     }
 
     // Incrementa o total de acessos
-    (*totalAcess)++;
+    cache->totalAccesses++;
 }
 
 int indexForReplace(Cache *cache, int index)
@@ -294,6 +317,7 @@ int indexForReplace(Cache *cache, int index)
     if (cache->substitution_policy == 'L')
     {
         // return LRU(cache, index);
+
         return 0;
     }
     else if (cache->substitution_policy == 'R')
@@ -302,8 +326,9 @@ int indexForReplace(Cache *cache, int index)
     }
     else if (cache->substitution_policy == 'F')
     {
-        // return FIFO(cache, index);
-        return 0;
+        contadorFifo++;
+        return FIFO(cache, index);
+        // return 0;
     }
     else
     {
@@ -327,5 +352,30 @@ int RANDOM(Cache *cache, int index)
 /**/
 int FIFO(Cache *cache, int index)
 {
-    return 0;
+    int indexReplace = index * cache->associativity;
+    int indexFifo = indexReplace;
+    int menor = cache->cache_address[indexReplace].itWasAdded;
+    for (int i = indexReplace; i < indexReplace + cache->associativity; i++)
+    {
+        if (cache->cache_address[i].itWasAdded < menor)
+        {
+            menor = cache->cache_address[i].itWasAdded;
+            indexFifo = i;
+        }
+    }
+    return indexFifo;
+}
+
+void printFlag1(Cache *cache, int missCount, unsigned long int totalAcess, int cache_hits)
+{
+    printf("Total de acessos: %lu\n", totalAcess);
+    printf("Total de hits: %d\n", cache_hits);
+    printf("Total de misses: %d\n", missCount);
+    printf("Taxa de hits: %.4f\n", (float)cache_hits / totalAcess);
+    printf("Taxa de misses: %.4f\n", (float)missCount / totalAcess);
+}
+
+void printFlag2(Cache *cache, int missCount, unsigned long int totalAcess, int cache_hits)
+{
+    printf("%lu %.4f %.4f\n", totalAcess, (float)cache_hits / totalAcess, (float)missCount / totalAcess);
 }
