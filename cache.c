@@ -1,109 +1,4 @@
-#include <stdio.h>
-#include <stdbool.h> // bool lib
-#include <stdlib.h>
-#include <string.h>
-#include <math.h>
-#include <stdint.h>
-#include <ctype.h>
-
-// cache_simulator <nsets> <bsize> <assoc> <substituição> <flag_saida> arquivo_de_entrada
-// 2 5 6 r 1 trace.txt
-
-typedef struct
-{
-    unsigned int tag;
-    unsigned int index;
-    unsigned int offset;
-    unsigned int itWasAdded;
-    // unsigned int lastAccessedAddress;
-    bool validade;
-} CacheAddress;
-
-typedef struct
-{
-    int totalMisses;
-    int capacity;
-    int compulsory;
-    int conflict;
-    int hits;
-} CacheMisses;
-
-typedef struct
-{
-    unsigned int associativity; // associatividade
-    unsigned int block_size;    // tam do bloco
-    unsigned int nsets;         // numero de conjuntos
-    char substitution_policy;   // politica de substituicao
-    CacheAddress *cache_address;
-    CacheMisses *misses;
-    unsigned int totalAccesses;
-} Cache;
-
-
-bool debug = true;
-
-void readFile(Cache *cache, const char *file);
-int getTag(int address, int block_size, int num_sets);
-int getIndex(int address, int block_size, int num_sets);
-void processAddress(Cache *cache, int address);
-Cache *initializeCache(Cache *cache, unsigned int associativity,
-                       unsigned int block_size, unsigned int nsets, char substitution_policy);
-CacheAddress *freeCacheAddress(CacheAddress *cache_address);
-int indexForReplace(Cache *cache, int index);
-static bool powerOfTwo(const unsigned int value);
-// int LRU(Cache *cache, int index);
-int FIFO(Cache *cache, int index);
-int RANDOM(Cache *cache, int index);
-
-int main(int argc, char *argv[])
-{
-    // Cache *cache = (Cache *)malloc(sizeof(Cache));
-    //  CacheAddress *cacheAdress = (CacheAddress *)malloc(sizeof(CacheAddress));
-    Cache *cache;
-    if (argc < 7)
-    {
-        printf("Uso: %s <nsets> <bsize> <assoc> <subs> <flag_saida> <arquivo_de_entrada>\n", argv[0]);
-        return 1;
-    }
-    int nsets = 0;
-    int block_size = 0;
-    int associativity = 0;
-    char substitution_policy;
-    int exit_flag = 0;
-
-    nsets = atoi(argv[1]);
-    block_size = atoi(argv[2]);
-    associativity = atoi(argv[3]);
-    substitution_policy = toupper(argv[4][0]);
-    exit_flag = atoi(argv[5]);
-    char *trace_file = argv[6];
-
-    /* testando os parametros passados na chamada do codigo*/
-    if (debug)
-    {
-        printf("nsets: %d\n", nsets);
-        printf("bsize: %d\n", block_size);
-        printf("assoc: %d\n", associativity);
-        printf("sub_policy: %c\n", substitution_policy);
-        printf("exit_flag: %d\n", exit_flag);
-        printf("trace_file: %s\n", trace_file);
-    }
-    int missCount = 0;
-    int cacheHits = 0;
-    unsigned long int totalAcess = 0;
-    cache = initializeCache(cache, associativity, block_size, nsets, substitution_policy);
-
-    printf("\n\n");
-    readFile(cache, trace_file);
-
-    float missRate = (float)cache->misses->totalMisses / cache->totalAccesses;
-    float hitRate = (float)cache->misses->hits / cache->totalAccesses;
-    printf("Total de acessos: %u\n", cache->totalAccesses);
-    printf("Total de hits: %.4f\n", hitRate);
-    printf("Total de misses: %.4f\n", missRate);
-    free(cache);
-    return 0;
-}
+#include "cache.h"
 
 // func para testar se esta em potencia de dois
 static bool powerOfTwo(const unsigned int value)
@@ -111,22 +6,24 @@ static bool powerOfTwo(const unsigned int value)
     return (value & (value - 1)) == 0;
 }
 
+// inicializacao da cache
 Cache *initializeCache(Cache *cache, unsigned int associativity, unsigned int block_size, unsigned int nsets, char substitution_policy)
 {
-    cache = (Cache *)malloc(sizeof(Cache));
+    cache = (Cache *)malloc(sizeof(Cache)); // aloca memoria para a cache
     if (cache == NULL)
     {
         printf("ERRO: Problema ao alocar memoria para a cache\n");
         return NULL;
     }
 
-    cache->misses = (CacheMisses *)malloc(sizeof(CacheMisses));
+    cache->misses = (CacheMisses *)malloc(sizeof(CacheMisses)); // aloca memoria para os misses
     if (cache->misses == NULL)
     {
         printf("ERRO: Problema ao alocar memoria para os misses\n");
         return NULL;
     }
 
+    /* Inicializa todos os dados, caso contrario pode dar BO*/
     cache->associativity = associativity;
     cache->block_size = block_size;
     cache->nsets = nsets;
@@ -136,6 +33,7 @@ Cache *initializeCache(Cache *cache, unsigned int associativity, unsigned int bl
     cache->misses->compulsory = 0;
     cache->misses->conflict = 0;
     cache->misses->hits = 0;
+    cache->totalAccesses = 0;
 
     if (!powerOfTwo(nsets))
     {
@@ -152,6 +50,7 @@ Cache *initializeCache(Cache *cache, unsigned int associativity, unsigned int bl
     }
 
     cache->cache_address = (CacheAddress *)malloc(nsets * associativity * sizeof(CacheAddress));
+    // aloca memoria para o Adress usando um calculo do "tamanho total" da cache
     if (cache->cache_address == NULL)
     {
         printf("ERRO: Problema ao alocar memoria para os endereços da cache\n");
@@ -204,18 +103,11 @@ void readFile(Cache *cache, const char *file)
 
     while (fread(&endereco, sizeof(int), 1, fp) == 1)
     {
-        /*
-        if (fread(&endereco, sizeof(int), 1, fp) != 1)
-        {
-            printf("ERRO: Não foi possível ler o endereço corretamente\n");
-        }*/
 
         endereco = __builtin_bswap32(endereco);
-        //printf("Endereco: %d\n", endereco);
+        // printf("Endereco: %d\n", endereco);
         processAddress(cache, endereco);
     }
-    // printf("\nTotal de acessos: %lu\n", cache_accesses);
-
     fclose(fp);
 }
 
@@ -226,11 +118,10 @@ void processAddress(Cache *cache, int address)
     unsigned int index_bits = log2(cache->nsets);
 
     uint32_t tag = address >> (offset_bits + index_bits);
-    int medio = pow(2, index_bits);
+    int medio = pow(2, index_bits); // somente teste
     uint32_t index = (address >> offset_bits) & (medio - 1);
     // Mascara, fazendo um AND bit a bit
     int lineIndex = index * cache->associativity;
-    int indexTest = index % cache->nsets;
 
     // Ve se eh hit
     bool isHit = false;
@@ -248,7 +139,6 @@ void processAddress(Cache *cache, int address)
     if (!isHit)
     {
         // se n eh hit conta como miss
-        //(*missCount)++;
         cache->misses->totalMisses++;
 
         // Procura por uma linha vazia no conjunto
@@ -264,7 +154,26 @@ void processAddress(Cache *cache, int address)
 
         // se nao tiver linha vazia usa o replace
         int indexReplace = (emptyLine != -1) ? emptyLine : indexForReplace(cache, index);
-        //int indexReplace = indexForReplace(cache, index);
+
+        // se for linha vazia eh compulsorio
+        if (emptyLine != -1)
+        {
+            cache->misses->compulsory++;
+        }
+        else
+        {
+            // se a cache esta cheia eh de capacidade
+            if (setIsFull(cache))
+            {
+                cache->misses->capacity++;
+            }
+            else
+            {
+                // se nao for nenhum dos outros, logo eh conflito
+                cache->misses->conflict++;
+            }
+        }
+
         if (cache->substitution_policy == 'F')
         {
             cache->cache_address[indexReplace].itWasAdded = cache->totalAccesses;
@@ -283,14 +192,13 @@ void processAddress(Cache *cache, int address)
     cache->totalAccesses++;
 }
 
+// somente pra organizar o cdg 
 int indexForReplace(Cache *cache, int index)
 {
     // printf("\n\nPOLITICA DE SUBSTITUICAO:%c\n", cache->substitution_policy);
     if (cache->substitution_policy == 'L')
     {
-        // return LRU(cache, index);
-
-        return 0;
+        return LRU(cache, index);
     }
     else if (cache->substitution_policy == 'R')
     {
@@ -307,19 +215,16 @@ int indexForReplace(Cache *cache, int index)
     }
 }
 
-/*
-int LRU(Cache *cache, int index)
-{
-    return 0;
-}
-*/
-
+// funcao para calcular o endereco usando algoritmo aleatorio
+// explicacoes melhores sobre pq da formula abaixo
 int RANDOM(Cache *cache, int index)
 {
-    int indexReplace = index * cache->associativity;
-    return indexReplace + rand() % cache->associativity;
+    // testei com cache->associativity + index * cache->associativity
+    // testei com cache->associativity * cache->associativity
+    // e testei com cache->associativity * index
+    return rand() % cache->associativity + ( cache->associativity ); // foi o mais perto dos resultados esperados
 }
-/**/
+/* Funcao para calcular o endereco usando fifo */
 int FIFO(Cache *cache, int index)
 {
     int indexReplace = index * cache->associativity;
@@ -336,16 +241,65 @@ int FIFO(Cache *cache, int index)
     return indexFifo;
 }
 
-void printFlag1(Cache *cache, int missCount, unsigned long int totalAcess, int cache_hits)
+/* ##### */
+/* Funcoes de print conforme a flag*/
+void printFlag0(Cache *cache)
 {
-    printf("Total de acessos: %lu\n", totalAcess);
-    printf("Total de hits: %d\n", cache_hits);
-    printf("Total de misses: %d\n", missCount);
-    printf("Taxa de hits: %.4f\n", (float)cache_hits / totalAcess);
-    printf("Taxa de misses: %.4f\n", (float)missCount / totalAcess);
+    printf("Total de acessos: %u\n", cache->totalAccesses);
+    printf("Total de hits: %u\n", cache->misses->hits);
+    printf("Total de misses: %u\n", cache->misses->totalMisses);
+    printf("Taxa de hits: %.4f\n", (float)cache->misses->hits / cache->totalAccesses);
+    printf("Taxa de misses: %.4f\n", (float)cache->misses->totalMisses / cache->totalAccesses);
+    printf("Taxa de misses compulsorios: %.2f\n", (float)cache->misses->compulsory / cache->misses->totalMisses);
+    printf("Taxa de misses por capacidade: %.2f\n", (float)cache->misses->capacity / cache->misses->totalMisses);
+    printf("Taxa de misses por conflito: %.2f\n", (float)cache->misses->conflict / cache->misses->totalMisses);
 }
 
-void printFlag0(Cache *cache, int missCount, unsigned long int totalAcess, int cache_hits)
+void printFlag1(Cache *cache)
 {
-    printf("%lu %.4f %.4f\n", totalAcess, (float)cache_hits / totalAcess, (float)missCount / totalAcess);
+    printf("%u %.4f %.4f %.2f %.2f %.2f\n", cache->totalAccesses, (float)cache->misses->hits / cache->totalAccesses,
+           (float)cache->misses->totalMisses / cache->totalAccesses, (float)cache->misses->compulsory / cache->misses->totalMisses,
+           (float)cache->misses->capacity / cache->misses->totalMisses, (float)cache->misses->conflict / cache->misses->totalMisses);
+}
+
+// funcao usada no setIsFull
+unsigned int getIndexForCheckFull(unsigned int set, unsigned int way, unsigned int associativity)
+{
+    return set * associativity + way; //
+}
+
+// Função is_full
+bool setIsFull(Cache *cache)
+{
+    for (unsigned int i = 0; i < cache->nsets; i++)
+    {
+        for (unsigned int j = 0; j < cache->associativity; j++)
+        {
+            
+            if (cache->cache_address[getIndexForCheckFull(i, j, cache->associativity)].validade == false)
+                return false; 
+        }
+    }
+    return true; // Se todos são válidos, retorna true
+}
+
+// funcao para calcular o LRU 
+int LRU(Cache *cache, int index)
+{
+    int indexReplace = index * cache->associativity;
+    int indexLru = indexReplace;
+    int menor = cache->cache_address[indexReplace].itWasAdded; // menor valor de tempo de uso
+
+    // Percorre todas as linhas dentro do conjunto para encontrar a menos recentemente usada
+    for (int i = indexReplace; i < indexReplace + cache->associativity; i++)
+    {
+        // Compara os tempos para encontrar o menor (a linha menos recentemente usada)
+        if (cache->cache_address[i].itWasAdded < menor)
+        {
+            menor = cache->cache_address[i].itWasAdded;
+            indexLru = i; // atualiza o índice da linha menos recentemente usada
+        }
+    }
+
+    return indexLru; // retorna o índice da linha que deve ser substituída
 }
