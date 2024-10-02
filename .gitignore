@@ -1,3 +1,4 @@
 *.exe
 main.exe
 *.o
+cache_simulator
