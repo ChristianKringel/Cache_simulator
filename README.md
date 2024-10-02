@@ -14,7 +14,7 @@ Este projeto é um simulador de cache que permite a simulação de diferentes co
 Para compilar o projeto, utilize o seguinte comando no terminal:
 
 ```bash
-gcc -o cache_simulator cache_simulator.c cache.c
+gcc -o cache_simulator cache_simulator.c cache.c -lm
 
 ```
 Caso seja usado o Makefile simplesmente rodar o comando

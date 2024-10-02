@@ -19,7 +19,8 @@ typedef struct
     unsigned int index;
     unsigned int offset;
     unsigned int itWasAdded;
-    bool validade;
+    unsigned int lastAccess;
+    bool valid;
 } CacheAddress;
 
 typedef struct
@@ -28,8 +29,15 @@ typedef struct
     int capacity;
     int compulsory;
     int conflict;
-    int hits;
 } CacheMisses;
+
+typedef struct{
+    unsigned int hits; 
+} CacheHits;
+
+typedef struct{
+    unsigned int totalAccesses;
+} CacheTotalAccesses;
 
 typedef struct
 {
@@ -39,7 +47,8 @@ typedef struct
     char substitution_policy;   // politica de substituicao
     CacheAddress *cache_address;
     CacheMisses *misses;
-    unsigned int totalAccesses;
+    CacheHits *hits;
+    CacheTotalAccesses *accesses;
 } Cache;
 
 //bool debug = true;
@@ -47,10 +56,9 @@ typedef struct
 // Declaracao das funcoes utilizadas
 int LRU(Cache *cache, int index);
 void readFile(Cache *cache, const char *file);
-bool setIsFull(Cache *cache);
+bool cacheIsFull(Cache *cache);
 void processAddress(Cache *cache, int address);
 Cache *initializeCache(Cache *cache, unsigned int associativity, unsigned int block_size, unsigned int nsets, char substitution_policy);
-CacheAddress *freeCacheAddress(CacheAddress *cache_address);
 int indexForReplace(Cache *cache, int index);
 static bool powerOfTwo(const unsigned int value);
 int LRU(Cache *cache, int index);

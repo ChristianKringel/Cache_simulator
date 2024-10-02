@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
     }
     else if (exit_flag == 1)
     {
-        printFlag1(cache);
+       printFlag1(cache);
     }
     free(cache);
     return 0;
