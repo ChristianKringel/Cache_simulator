@@ -31,5 +31,5 @@ Para executar o código no linux use algo deste tipo:
 - .\cache_simulator <nsets> <bsize> <assoc> <substituição> <flag_saida> arquivo_de_entrada
 
 ## Autores 
-@ChristianKringel
-<br>@Ravazolo88
+Christian Kringel: `github.com/ChristianKringel`
+<br>Pedro Ravazolo: `github.com/Ravazolo88`
