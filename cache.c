@@ -222,7 +222,9 @@ int RANDOM(Cache *cache, int index)
     // testei com cache->associativity + index * cache->associativity
     // testei com cache->associativity * cache->associativity
     // e testei com cache->associativity * index
-    return rand() % cache->associativity + ( cache->associativity ); // foi o mais perto dos resultados esperados
+    return rand() % cache->associativity + (index * cache->associativity); // foi o mais perto dos resultados esperados
+    // nao buga com o vortex
+   //return rand() % cache->associativity + ( cache->associativity ); 
 }
 /* Funcao para calcular o endereco usando fifo */
 int FIFO(Cache *cache, int index)
