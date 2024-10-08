@@ -1,0 +1,673 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt-BR">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.12.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Simulador de Cache: Referência do Arquivo cache.c</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">Simulador de Cache
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Gerado por Doxygen 1.12.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Busca',false);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){ initResizable(false); });
+/* @license-end */
+</script>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Carregando...</div>
+<div class="SRStatus" id="Searching">Procurando...</div>
+<div class="SRStatus" id="NoMatches">Nenhuma entrada encontrado</div>
+</div>
+</div>
+</div>
+</div>
+
+</div><!-- top -->
+<div id="doc-content">
+<div class="header">
+  <div class="summary">
+<a href="#func-members">Funções</a>  </div>
+  <div class="headertitle"><div class="title">Referência do Arquivo cache.c</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &quot;<a class="el" href="cache_8h_source.html">cache.h</a>&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Funções</h2></td></tr>
+<tr class="memitem:a9cd04cc8ff8fb6e6dfbc797416b392e8" id="r_a9cd04cc8ff8fb6e6dfbc797416b392e8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_cache.html">Cache</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9cd04cc8ff8fb6e6dfbc797416b392e8">createCacheWithPolicy</a> (int numSets, int blockSize, int associativity, char policyChar)</td></tr>
+<tr class="separator:a9cd04cc8ff8fb6e6dfbc797416b392e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58ab362aa9e4b705496bd34afc4b8730" id="r_a58ab362aa9e4b705496bd34afc4b8730"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a58ab362aa9e4b705496bd34afc4b8730">freeCache</a> (<a class="el" href="struct_cache.html">Cache</a> *cache)</td></tr>
+<tr class="separator:a58ab362aa9e4b705496bd34afc4b8730"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a99de570dfd28741d6cc1eafd956aac3f" id="r_a99de570dfd28741d6cc1eafd956aac3f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a99de570dfd28741d6cc1eafd956aac3f">readFile</a> (<a class="el" href="struct_cache.html">Cache</a> *cache, const char *filename)</td></tr>
+<tr class="separator:a99de570dfd28741d6cc1eafd956aac3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c8770760f4767dd5dcd67d0f558b664" id="r_a5c8770760f4767dd5dcd67d0f558b664"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5c8770760f4767dd5dcd67d0f558b664">isHit</a> (<a class="el" href="struct_cache.html">Cache</a> *cache, uint32_t tag, uint32_t index, int *emptySlot)</td></tr>
+<tr class="separator:a5c8770760f4767dd5dcd67d0f558b664"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a675dca2b5f8519456d2fae02bda97c69" id="r_a675dca2b5f8519456d2fae02bda97c69"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a675dca2b5f8519456d2fae02bda97c69">handleCacheMiss</a> (<a class="el" href="struct_cache.html">Cache</a> *cache, uint32_t tag, uint32_t index, int *emptySlot)</td></tr>
+<tr class="separator:a675dca2b5f8519456d2fae02bda97c69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac222e9ce797a3b795df6772cb54b515c" id="r_ac222e9ce797a3b795df6772cb54b515c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac222e9ce797a3b795df6772cb54b515c">processAddress</a> (<a class="el" href="struct_cache.html">Cache</a> *cache, const uint32_t address)</td></tr>
+<tr class="separator:ac222e9ce797a3b795df6772cb54b515c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67ea9ee773015ad776e35b723fca845f" id="r_a67ea9ee773015ad776e35b723fca845f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a67ea9ee773015ad776e35b723fca845f">getLRUIndex</a> (<a class="el" href="struct_cache_set.html">CacheSet</a> *set, int associativity)</td></tr>
+<tr class="separator:a67ea9ee773015ad776e35b723fca845f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09b680f973b0ea5b6c648906787a39e0" id="r_a09b680f973b0ea5b6c648906787a39e0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a09b680f973b0ea5b6c648906787a39e0">getFIFOIndex</a> (<a class="el" href="struct_cache_set.html">CacheSet</a> *set, int associativity)</td></tr>
+<tr class="separator:a09b680f973b0ea5b6c648906787a39e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace4c5717f983a37bef9edb82da2bda40" id="r_ace4c5717f983a37bef9edb82da2bda40"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ace4c5717f983a37bef9edb82da2bda40">getRandomIndex</a> (<a class="el" href="struct_cache_set.html">CacheSet</a> *set, int associativity)</td></tr>
+<tr class="separator:ace4c5717f983a37bef9edb82da2bda40"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa88dc96326bdd8b9190f0d5bfff509e0" id="r_aa88dc96326bdd8b9190f0d5bfff509e0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa88dc96326bdd8b9190f0d5bfff509e0">printStats</a> (<a class="el" href="struct_cache.html">Cache</a> *cache, int flag)</td></tr>
+<tr class="separator:aa88dc96326bdd8b9190f0d5bfff509e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0508b4d183abbd39278a56820f28952a" id="r_a0508b4d183abbd39278a56820f28952a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0508b4d183abbd39278a56820f28952a">isPowerOfTwo</a> (const unsigned int value)</td></tr>
+<tr class="separator:a0508b4d183abbd39278a56820f28952a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a84217387422a2a3dcd79bc90a9a0255a" id="r_a84217387422a2a3dcd79bc90a9a0255a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a84217387422a2a3dcd79bc90a9a0255a">cacheIsFull</a> (<a class="el" href="struct_cache.html">Cache</a> *cache)</td></tr>
+<tr class="separator:a84217387422a2a3dcd79bc90a9a0255a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Funções</h2>
+<a id="a84217387422a2a3dcd79bc90a9a0255a" name="a84217387422a2a3dcd79bc90a9a0255a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a84217387422a2a3dcd79bc90a9a0255a">&#9670;&#160;</a></span>cacheIsFull()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool cacheIsFull </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_cache.html">Cache</a> *</td>          <td class="paramname"><span class="paramname"><em>cache</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Func que percorre a cache pra ver se esta cheia </p>
+<div class="fragment"><div class="line"><span class="lineno">  288</span>{</div>
+<div class="line"><span class="lineno">  289</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; cache-&gt;<a class="code hl_variable" href="struct_cache.html#ae0d726f1d0bbf6e8fcc811b03e40b8c9">numSets</a>; i++) <span class="comment">// percorre todos os conjuntos</span></div>
+<div class="line"><span class="lineno">  290</span>    {</div>
+<div class="line"><span class="lineno">  291</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; cache-&gt;<a class="code hl_variable" href="struct_cache.html#a88f015d183dc01dbcf6e71590fad2794">associativity</a>; j++) <span class="comment">// percorre todos os blocos de cada conjunto</span></div>
+<div class="line"><span class="lineno">  292</span>        {</div>
+<div class="line"><span class="lineno">  293</span>            <span class="keywordflow">if</span> (!cache-&gt;<a class="code hl_variable" href="struct_cache.html#a71fa600fdf526ffd1395b4e582b1a873">sets</a>[i].<a class="code hl_variable" href="struct_cache_set.html#a92b1d8d78e7b7bc59dc75ebe0f14ab5e">blocks</a>[j].<a class="code hl_variable" href="struct_cache_block.html#a28e3c179a86f337095088b3ca02a2b2a">valid</a>) <span class="comment">// se tiver algum bloco invalido, a cache nao esta cheia</span></div>
+<div class="line"><span class="lineno">  294</span>                <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  295</span>            </div>
+<div class="line"><span class="lineno">  296</span>        }</div>
+<div class="line"><span class="lineno">  297</span>    }</div>
+<div class="line"><span class="lineno">  298</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>; <span class="comment">// se nao achou nenhum bloco invalido, entao todos sao validos, entao esta cheia</span></div>
+<div class="line"><span class="lineno">  299</span>}</div>
+<div class="ttc" id="astruct_cache_block_html_a28e3c179a86f337095088b3ca02a2b2a"><div class="ttname"><a href="struct_cache_block.html#a28e3c179a86f337095088b3ca02a2b2a">CacheBlock::valid</a></div><div class="ttdeci">bool valid</div><div class="ttdef"><b>Definição</b> cache.h:18</div></div>
+<div class="ttc" id="astruct_cache_html_a71fa600fdf526ffd1395b4e582b1a873"><div class="ttname"><a href="struct_cache.html#a71fa600fdf526ffd1395b4e582b1a873">Cache::sets</a></div><div class="ttdeci">CacheSet * sets</div><div class="ttdef"><b>Definição</b> cache.h:43</div></div>
+<div class="ttc" id="astruct_cache_html_a88f015d183dc01dbcf6e71590fad2794"><div class="ttname"><a href="struct_cache.html#a88f015d183dc01dbcf6e71590fad2794">Cache::associativity</a></div><div class="ttdeci">int associativity</div><div class="ttdef"><b>Definição</b> cache.h:46</div></div>
+<div class="ttc" id="astruct_cache_html_ae0d726f1d0bbf6e8fcc811b03e40b8c9"><div class="ttname"><a href="struct_cache.html#ae0d726f1d0bbf6e8fcc811b03e40b8c9">Cache::numSets</a></div><div class="ttdeci">int numSets</div><div class="ttdef"><b>Definição</b> cache.h:44</div></div>
+<div class="ttc" id="astruct_cache_set_html_a92b1d8d78e7b7bc59dc75ebe0f14ab5e"><div class="ttname"><a href="struct_cache_set.html#a92b1d8d78e7b7bc59dc75ebe0f14ab5e">CacheSet::blocks</a></div><div class="ttdeci">CacheBlock * blocks</div><div class="ttdef"><b>Definição</b> cache.h:27</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a9cd04cc8ff8fb6e6dfbc797416b392e8" name="a9cd04cc8ff8fb6e6dfbc797416b392e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9cd04cc8ff8fb6e6dfbc797416b392e8">&#9670;&#160;</a></span>createCacheWithPolicy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_cache.html">Cache</a> * createCacheWithPolicy </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>numSets</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>blockSize</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>associativity</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char</td>          <td class="paramname"><span class="paramname"><em>policyChar</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Funcao que inicializa toda a cache, conjuntos, etc Tambem seta as politicas de substituicao </p>
+<div class="fragment"><div class="line"><span class="lineno">    9</span>{</div>
+<div class="line"><span class="lineno">   10</span>    <a class="code hl_struct" href="struct_cache.html">Cache</a> *cache = malloc(<span class="keyword">sizeof</span>(<a class="code hl_struct" href="struct_cache.html">Cache</a>));</div>
+<div class="line"><span class="lineno">   11</span>    srand(time(NULL)); <span class="comment">// Inicializa o gerador de números aleatórios</span></div>
+<div class="line"><span class="lineno">   12</span>    <span class="keywordflow">if</span> (cache == NULL)</div>
+<div class="line"><span class="lineno">   13</span>    {</div>
+<div class="line"><span class="lineno">   14</span>        printf(<span class="stringliteral">&quot;ERRO: Falha na alocação de memória para a cache\n&quot;</span>);</div>
+<div class="line"><span class="lineno">   15</span>        <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><span class="lineno">   16</span>    }</div>
+<div class="line"><span class="lineno">   17</span> </div>
+<div class="line"><span class="lineno">   18</span>    <span class="comment">// seta os dados da cache na struct</span></div>
+<div class="line"><span class="lineno">   19</span>    cache-&gt;<a class="code hl_variable" href="struct_cache.html#ae0d726f1d0bbf6e8fcc811b03e40b8c9">numSets</a> = numSets; </div>
+<div class="line"><span class="lineno">   20</span>    cache-&gt;<a class="code hl_variable" href="struct_cache.html#a4aaa73e329d20f35039fa5cdd2e6f648">blockSize</a> = blockSize;</div>
+<div class="line"><span class="lineno">   21</span>    cache-&gt;<a class="code hl_variable" href="struct_cache.html#a88f015d183dc01dbcf6e71590fad2794">associativity</a> = associativity;</div>
+<div class="line"><span class="lineno">   22</span>    cache-&gt;<a class="code hl_variable" href="struct_cache.html#a71fa600fdf526ffd1395b4e582b1a873">sets</a> = malloc(numSets * <span class="keyword">sizeof</span>(<a class="code hl_struct" href="struct_cache_set.html">CacheSet</a>));</div>
+<div class="line"><span class="lineno">   23</span>    <span class="keywordflow">if</span> (cache-&gt;<a class="code hl_variable" href="struct_cache.html#a71fa600fdf526ffd1395b4e582b1a873">sets</a> == NULL)</div>
+<div class="line"><span class="lineno">   24</span>    {</div>
+<div class="line"><span class="lineno">   25</span>        printf(<span class="stringliteral">&quot;ERRO: Falha na alocação de memória para os conjuntos\n&quot;</span>);</div>
+<div class="line"><span class="lineno">   26</span>        free(cache);</div>
+<div class="line"><span class="lineno">   27</span>        <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><span class="lineno">   28</span>    }</div>
+<div class="line"><span class="lineno">   29</span> </div>
+<div class="line"><span class="lineno">   30</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; numSets; i++)</div>
+<div class="line"><span class="lineno">   31</span>    {   </div>
+<div class="line"><span class="lineno">   32</span>        cache-&gt;<a class="code hl_variable" href="struct_cache.html#a71fa600fdf526ffd1395b4e582b1a873">sets</a>[i].<a class="code hl_variable" href="struct_cache_set.html#a92b1d8d78e7b7bc59dc75ebe0f14ab5e">blocks</a> = malloc(associativity * <span class="keyword">sizeof</span>(<a class="code hl_struct" href="struct_cache_block.html">CacheBlock</a>)); <span class="comment">// aloca os blocos de cada conjunto com base na associatividade</span></div>
+<div class="line"><span class="lineno">   33</span>        cache-&gt;<a class="code hl_variable" href="struct_cache.html#a71fa600fdf526ffd1395b4e582b1a873">sets</a>[i].<a class="code hl_variable" href="struct_cache_set.html#ae6030c61dacb12f2407981efe5a00fbb">numBlocks</a> = associativity; <span class="comment">// seta o numero de blocos</span></div>
+<div class="line"><span class="lineno">   34</span>        <span class="keywordflow">if</span> (cache-&gt;<a class="code hl_variable" href="struct_cache.html#a71fa600fdf526ffd1395b4e582b1a873">sets</a>[i].<a class="code hl_variable" href="struct_cache_set.html#a92b1d8d78e7b7bc59dc75ebe0f14ab5e">blocks</a> == NULL)</div>
+<div class="line"><span class="lineno">   35</span>        {</div>
+<div class="line"><span class="lineno">   36</span>            printf(<span class="stringliteral">&quot;ERRO: Falha na alocação de memória para os blocos\n&quot;</span>);</div>
+<div class="line"><span class="lineno">   37</span>            <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; i; j++)</div>
+<div class="line"><span class="lineno">   38</span>            {</div>
+<div class="line"><span class="lineno">   39</span>                free(cache-&gt;<a class="code hl_variable" href="struct_cache.html#a71fa600fdf526ffd1395b4e582b1a873">sets</a>[j].<a class="code hl_variable" href="struct_cache_set.html#a92b1d8d78e7b7bc59dc75ebe0f14ab5e">blocks</a>);</div>
+<div class="line"><span class="lineno">   40</span>            }</div>
+<div class="line"><span class="lineno">   41</span>            <span class="comment">// se teve algum erro pra alocar os blocos, da free em tudo e retorna NULL</span></div>
+<div class="line"><span class="lineno">   42</span>            free(cache-&gt;<a class="code hl_variable" href="struct_cache.html#a71fa600fdf526ffd1395b4e582b1a873">sets</a>);</div>
+<div class="line"><span class="lineno">   43</span>            free(cache);</div>
+<div class="line"><span class="lineno">   44</span>            <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><span class="lineno">   45</span>        }</div>
+<div class="line"><span class="lineno">   46</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; associativity; j++)</div>
+<div class="line"><span class="lineno">   47</span>        {</div>
+<div class="line"><span class="lineno">   48</span>            <span class="comment">// inicializa os blocos</span></div>
+<div class="line"><span class="lineno">   49</span>            cache-&gt;<a class="code hl_variable" href="struct_cache.html#a71fa600fdf526ffd1395b4e582b1a873">sets</a>[i].<a class="code hl_variable" href="struct_cache_set.html#a92b1d8d78e7b7bc59dc75ebe0f14ab5e">blocks</a>[j].<a class="code hl_variable" href="struct_cache_block.html#a28e3c179a86f337095088b3ca02a2b2a">valid</a> = <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">   50</span>            cache-&gt;<a class="code hl_variable" href="struct_cache.html#a71fa600fdf526ffd1395b4e582b1a873">sets</a>[i].<a class="code hl_variable" href="struct_cache_set.html#a92b1d8d78e7b7bc59dc75ebe0f14ab5e">blocks</a>[j].<a class="code hl_variable" href="struct_cache_block.html#a1c50fcd1195659821729f52af8f3bb7d">tag</a> = 0;</div>
+<div class="line"><span class="lineno">   51</span>            cache-&gt;<a class="code hl_variable" href="struct_cache.html#a71fa600fdf526ffd1395b4e582b1a873">sets</a>[i].<a class="code hl_variable" href="struct_cache_set.html#a92b1d8d78e7b7bc59dc75ebe0f14ab5e">blocks</a>[j].<a class="code hl_variable" href="struct_cache_block.html#aa3495b6da1dbb826e54e49b4d90d7efb">lastAccess</a> = 0;</div>
+<div class="line"><span class="lineno">   52</span>            cache-&gt;<a class="code hl_variable" href="struct_cache.html#a71fa600fdf526ffd1395b4e582b1a873">sets</a>[i].<a class="code hl_variable" href="struct_cache_set.html#a92b1d8d78e7b7bc59dc75ebe0f14ab5e">blocks</a>[j].<a class="code hl_variable" href="struct_cache_block.html#aed1c43a52f61ca64c74ab7ca3db0d760">insertionTime</a> = 0;</div>
+<div class="line"><span class="lineno">   53</span>        }</div>
+<div class="line"><span class="lineno">   54</span>    }</div>
+<div class="line"><span class="lineno">   55</span> </div>
+<div class="line"><span class="lineno">   56</span>    cache-&gt;<a class="code hl_variable" href="struct_cache.html#a6aec9f7ea482a935930e777e20649776">stats</a> = (<a class="code hl_struct" href="struct_cache_stats.html">CacheStats</a>){0, 0, 0, 0, 0, 0};</div>
+<div class="line"><span class="lineno">   57</span> </div>
+<div class="line"><span class="lineno">   58</span>    <span class="keywordflow">switch</span> (policyChar)</div>
+<div class="line"><span class="lineno">   59</span>    {</div>
+<div class="line"><span class="lineno">   60</span>    <span class="comment">// ve qual a politica de substituicao e seta a funcao correspondente</span></div>
+<div class="line"><span class="lineno">   61</span>    <span class="comment">// faz uso do ponteiro pra funcao</span></div>
+<div class="line"><span class="lineno">   62</span>    <span class="keywordflow">case</span> <span class="charliteral">&#39;L&#39;</span>:</div>
+<div class="line"><span class="lineno">   63</span>        cache-&gt;<a class="code hl_variable" href="struct_cache.html#a81840efb36de79428b876b10f6a7fc31">replacementPolicy</a> = <a class="code hl_function" href="#a67ea9ee773015ad776e35b723fca845f">getLRUIndex</a>;</div>
+<div class="line"><span class="lineno">   64</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">   65</span>    <span class="keywordflow">case</span> <span class="charliteral">&#39;F&#39;</span>:</div>
+<div class="line"><span class="lineno">   66</span>        cache-&gt;<a class="code hl_variable" href="struct_cache.html#a81840efb36de79428b876b10f6a7fc31">replacementPolicy</a> = <a class="code hl_function" href="#a09b680f973b0ea5b6c648906787a39e0">getFIFOIndex</a>;</div>
+<div class="line"><span class="lineno">   67</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">   68</span>    <span class="keywordflow">case</span> <span class="charliteral">&#39;R&#39;</span>:</div>
+<div class="line"><span class="lineno">   69</span>        cache-&gt;<a class="code hl_variable" href="struct_cache.html#a81840efb36de79428b876b10f6a7fc31">replacementPolicy</a> = <a class="code hl_function" href="#ace4c5717f983a37bef9edb82da2bda40">getRandomIndex</a>;</div>
+<div class="line"><span class="lineno">   70</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">   71</span>    <span class="keywordflow">default</span>:</div>
+<div class="line"><span class="lineno">   72</span>        printf(<span class="stringliteral">&quot;ERRO: Política de substituição inválida\n&quot;</span>);</div>
+<div class="line"><span class="lineno">   73</span>        <a class="code hl_function" href="#a58ab362aa9e4b705496bd34afc4b8730">freeCache</a>(cache);</div>
+<div class="line"><span class="lineno">   74</span>        <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><span class="lineno">   75</span>    }</div>
+<div class="line"><span class="lineno">   76</span> </div>
+<div class="line"><span class="lineno">   77</span>    <span class="keywordflow">return</span> cache;</div>
+<div class="line"><span class="lineno">   78</span>}</div>
+<div class="ttc" id="acache_8c_html_a09b680f973b0ea5b6c648906787a39e0"><div class="ttname"><a href="#a09b680f973b0ea5b6c648906787a39e0">getFIFOIndex</a></div><div class="ttdeci">int getFIFOIndex(CacheSet *set, int associativity)</div><div class="ttdef"><b>Definição</b> cache.c:224</div></div>
+<div class="ttc" id="acache_8c_html_a58ab362aa9e4b705496bd34afc4b8730"><div class="ttname"><a href="#a58ab362aa9e4b705496bd34afc4b8730">freeCache</a></div><div class="ttdeci">void freeCache(Cache *cache)</div><div class="ttdef"><b>Definição</b> cache.c:83</div></div>
+<div class="ttc" id="acache_8c_html_a67ea9ee773015ad776e35b723fca845f"><div class="ttname"><a href="#a67ea9ee773015ad776e35b723fca845f">getLRUIndex</a></div><div class="ttdeci">int getLRUIndex(CacheSet *set, int associativity)</div><div class="ttdef"><b>Definição</b> cache.c:199</div></div>
+<div class="ttc" id="acache_8c_html_ace4c5717f983a37bef9edb82da2bda40"><div class="ttname"><a href="#ace4c5717f983a37bef9edb82da2bda40">getRandomIndex</a></div><div class="ttdeci">int getRandomIndex(CacheSet *set, int associativity)</div><div class="ttdef"><b>Definição</b> cache.c:247</div></div>
+<div class="ttc" id="astruct_cache_block_html"><div class="ttname"><a href="struct_cache_block.html">CacheBlock</a></div><div class="ttdef"><b>Definição</b> cache.h:17</div></div>
+<div class="ttc" id="astruct_cache_block_html_a1c50fcd1195659821729f52af8f3bb7d"><div class="ttname"><a href="struct_cache_block.html#a1c50fcd1195659821729f52af8f3bb7d">CacheBlock::tag</a></div><div class="ttdeci">uint32_t tag</div><div class="ttdef"><b>Definição</b> cache.h:19</div></div>
+<div class="ttc" id="astruct_cache_block_html_aa3495b6da1dbb826e54e49b4d90d7efb"><div class="ttname"><a href="struct_cache_block.html#aa3495b6da1dbb826e54e49b4d90d7efb">CacheBlock::lastAccess</a></div><div class="ttdeci">int lastAccess</div><div class="ttdef"><b>Definição</b> cache.h:21</div></div>
+<div class="ttc" id="astruct_cache_block_html_aed1c43a52f61ca64c74ab7ca3db0d760"><div class="ttname"><a href="struct_cache_block.html#aed1c43a52f61ca64c74ab7ca3db0d760">CacheBlock::insertionTime</a></div><div class="ttdeci">int insertionTime</div><div class="ttdef"><b>Definição</b> cache.h:22</div></div>
+<div class="ttc" id="astruct_cache_html"><div class="ttname"><a href="struct_cache.html">Cache</a></div><div class="ttdef"><b>Definição</b> cache.h:42</div></div>
+<div class="ttc" id="astruct_cache_html_a4aaa73e329d20f35039fa5cdd2e6f648"><div class="ttname"><a href="struct_cache.html#a4aaa73e329d20f35039fa5cdd2e6f648">Cache::blockSize</a></div><div class="ttdeci">int blockSize</div><div class="ttdef"><b>Definição</b> cache.h:45</div></div>
+<div class="ttc" id="astruct_cache_html_a6aec9f7ea482a935930e777e20649776"><div class="ttname"><a href="struct_cache.html#a6aec9f7ea482a935930e777e20649776">Cache::stats</a></div><div class="ttdeci">CacheStats stats</div><div class="ttdef"><b>Definição</b> cache.h:47</div></div>
+<div class="ttc" id="astruct_cache_html_a81840efb36de79428b876b10f6a7fc31"><div class="ttname"><a href="struct_cache.html#a81840efb36de79428b876b10f6a7fc31">Cache::replacementPolicy</a></div><div class="ttdeci">int(* replacementPolicy)(CacheSet *set, int associativity)</div><div class="ttdef"><b>Definição</b> cache.h:48</div></div>
+<div class="ttc" id="astruct_cache_set_html"><div class="ttname"><a href="struct_cache_set.html">CacheSet</a></div><div class="ttdef"><b>Definição</b> cache.h:26</div></div>
+<div class="ttc" id="astruct_cache_set_html_ae6030c61dacb12f2407981efe5a00fbb"><div class="ttname"><a href="struct_cache_set.html#ae6030c61dacb12f2407981efe5a00fbb">CacheSet::numBlocks</a></div><div class="ttdeci">int numBlocks</div><div class="ttdef"><b>Definição</b> cache.h:28</div></div>
+<div class="ttc" id="astruct_cache_stats_html"><div class="ttname"><a href="struct_cache_stats.html">CacheStats</a></div><div class="ttdef"><b>Definição</b> cache.h:32</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a58ab362aa9e4b705496bd34afc4b8730" name="a58ab362aa9e4b705496bd34afc4b8730"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a58ab362aa9e4b705496bd34afc4b8730">&#9670;&#160;</a></span>freeCache()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void freeCache </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_cache.html">Cache</a> *</td>          <td class="paramname"><span class="paramname"><em>cache</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Func pra dar free na cache </p>
+<div class="fragment"><div class="line"><span class="lineno">   84</span>{</div>
+<div class="line"><span class="lineno">   85</span>    <span class="keywordflow">if</span> (cache != NULL)</div>
+<div class="line"><span class="lineno">   86</span>    {</div>
+<div class="line"><span class="lineno">   87</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; cache-&gt;<a class="code hl_variable" href="struct_cache.html#ae0d726f1d0bbf6e8fcc811b03e40b8c9">numSets</a>; i++)</div>
+<div class="line"><span class="lineno">   88</span>        {</div>
+<div class="line"><span class="lineno">   89</span>            free(cache-&gt;<a class="code hl_variable" href="struct_cache.html#a71fa600fdf526ffd1395b4e582b1a873">sets</a>[i].<a class="code hl_variable" href="struct_cache_set.html#a92b1d8d78e7b7bc59dc75ebe0f14ab5e">blocks</a>);</div>
+<div class="line"><span class="lineno">   90</span>        }</div>
+<div class="line"><span class="lineno">   91</span>        free(cache-&gt;<a class="code hl_variable" href="struct_cache.html#a71fa600fdf526ffd1395b4e582b1a873">sets</a>);</div>
+<div class="line"><span class="lineno">   92</span>        free(cache);</div>
+<div class="line"><span class="lineno">   93</span>    }</div>
+<div class="line"><span class="lineno">   94</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a09b680f973b0ea5b6c648906787a39e0" name="a09b680f973b0ea5b6c648906787a39e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09b680f973b0ea5b6c648906787a39e0">&#9670;&#160;</a></span>getFIFOIndex()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int getFIFOIndex </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_cache_set.html">CacheSet</a> *</td>          <td class="paramname"><span class="paramname"><em>set</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>associativity</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Func pra calcular o indice pro FIFO </p>
+<div class="fragment"><div class="line"><span class="lineno">  225</span>{</div>
+<div class="line"><span class="lineno">  226</span>    <span class="keywordtype">int</span> fifoIndex = 0;</div>
+<div class="line"><span class="lineno">  227</span>    <span class="keywordtype">int</span> oldestTime = set-&gt;<a class="code hl_variable" href="struct_cache_set.html#a92b1d8d78e7b7bc59dc75ebe0f14ab5e">blocks</a>[0].<a class="code hl_variable" href="struct_cache_block.html#aed1c43a52f61ca64c74ab7ca3db0d760">insertionTime</a>;</div>
+<div class="line"><span class="lineno">  228</span> </div>
+<div class="line"><span class="lineno">  229</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 1; i &lt; associativity; i++)</div>
+<div class="line"><span class="lineno">  230</span>    {</div>
+<div class="line"><span class="lineno">  231</span>        <span class="keywordflow">if</span> (!set-&gt;<a class="code hl_variable" href="struct_cache_set.html#a92b1d8d78e7b7bc59dc75ebe0f14ab5e">blocks</a>[i].<a class="code hl_variable" href="struct_cache_block.html#a28e3c179a86f337095088b3ca02a2b2a">valid</a>) <span class="comment">// se tiver bloco invalido, retorna o indices</span></div>
+<div class="line"><span class="lineno">  232</span>            <span class="keywordflow">return</span> i;</div>
+<div class="line"><span class="lineno">  233</span> </div>
+<div class="line"><span class="lineno">  234</span>        <span class="keywordflow">if</span> (set-&gt;<a class="code hl_variable" href="struct_cache_set.html#a92b1d8d78e7b7bc59dc75ebe0f14ab5e">blocks</a>[i].<a class="code hl_variable" href="struct_cache_block.html#aed1c43a52f61ca64c74ab7ca3db0d760">insertionTime</a> &lt; oldestTime) <span class="comment">// se nao, ve qual o bloco mais antigo</span></div>
+<div class="line"><span class="lineno">  235</span>        {</div>
+<div class="line"><span class="lineno">  236</span>            oldestTime = set-&gt;<a class="code hl_variable" href="struct_cache_set.html#a92b1d8d78e7b7bc59dc75ebe0f14ab5e">blocks</a>[i].<a class="code hl_variable" href="struct_cache_block.html#aed1c43a52f61ca64c74ab7ca3db0d760">insertionTime</a>;</div>
+<div class="line"><span class="lineno">  237</span>            fifoIndex = i;</div>
+<div class="line"><span class="lineno">  238</span>        }</div>
+<div class="line"><span class="lineno">  239</span>    }</div>
+<div class="line"><span class="lineno">  240</span> </div>
+<div class="line"><span class="lineno">  241</span>    <span class="keywordflow">return</span> fifoIndex; <span class="comment">// retorna o indice do bloco mais antigo</span></div>
+<div class="line"><span class="lineno">  242</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a67ea9ee773015ad776e35b723fca845f" name="a67ea9ee773015ad776e35b723fca845f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67ea9ee773015ad776e35b723fca845f">&#9670;&#160;</a></span>getLRUIndex()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int getLRUIndex </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_cache_set.html">CacheSet</a> *</td>          <td class="paramname"><span class="paramname"><em>set</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>associativity</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Func pra calcular o indice pro LRU </p>
+<div class="fragment"><div class="line"><span class="lineno">  200</span>{</div>
+<div class="line"><span class="lineno">  201</span>    <span class="keywordtype">int</span> lruIndex = 0;</div>
+<div class="line"><span class="lineno">  202</span>    <span class="keywordtype">int</span> oldestTime = set-&gt;<a class="code hl_variable" href="struct_cache_set.html#a92b1d8d78e7b7bc59dc75ebe0f14ab5e">blocks</a>[0].<a class="code hl_variable" href="struct_cache_block.html#aa3495b6da1dbb826e54e49b4d90d7efb">lastAccess</a>;</div>
+<div class="line"><span class="lineno">  203</span> </div>
+<div class="line"><span class="lineno">  204</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 1; i &lt; associativity; i++)</div>
+<div class="line"><span class="lineno">  205</span>    {</div>
+<div class="line"><span class="lineno">  206</span>        <span class="keywordflow">if</span> (!set-&gt;<a class="code hl_variable" href="struct_cache_set.html#a92b1d8d78e7b7bc59dc75ebe0f14ab5e">blocks</a>[i].<a class="code hl_variable" href="struct_cache_block.html#a28e3c179a86f337095088b3ca02a2b2a">valid</a>) <span class="comment">// se tiver bloco invalido, retorna o indice </span></div>
+<div class="line"><span class="lineno">  207</span>            <span class="keywordflow">return</span> i;</div>
+<div class="line"><span class="lineno">  208</span> </div>
+<div class="line"><span class="lineno">  209</span>        <span class="keywordflow">if</span> (set-&gt;<a class="code hl_variable" href="struct_cache_set.html#a92b1d8d78e7b7bc59dc75ebe0f14ab5e">blocks</a>[i].<a class="code hl_variable" href="struct_cache_block.html#aa3495b6da1dbb826e54e49b4d90d7efb">lastAccess</a> &lt; oldestTime) <span class="comment">// se nao, ve qual o bloco usado mais antigamente</span></div>
+<div class="line"><span class="lineno">  210</span>        {</div>
+<div class="line"><span class="lineno">  211</span>            oldestTime = set-&gt;<a class="code hl_variable" href="struct_cache_set.html#a92b1d8d78e7b7bc59dc75ebe0f14ab5e">blocks</a>[i].<a class="code hl_variable" href="struct_cache_block.html#aa3495b6da1dbb826e54e49b4d90d7efb">lastAccess</a>; <span class="comment">// atualiza o tempo</span></div>
+<div class="line"><span class="lineno">  212</span>            lruIndex = i;                           <span class="comment">// atualiza o indice</span></div>
+<div class="line"><span class="lineno">  213</span>        }</div>
+<div class="line"><span class="lineno">  214</span>    }</div>
+<div class="line"><span class="lineno">  215</span> </div>
+<div class="line"><span class="lineno">  216</span>    <span class="keywordflow">return</span> lruIndex; <span class="comment">// retorna o indice do bloco menos usado </span></div>
+<div class="line"><span class="lineno">  217</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ace4c5717f983a37bef9edb82da2bda40" name="ace4c5717f983a37bef9edb82da2bda40"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace4c5717f983a37bef9edb82da2bda40">&#9670;&#160;</a></span>getRandomIndex()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int getRandomIndex </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_cache_set.html">CacheSet</a> *</td>          <td class="paramname"><span class="paramname"><em>set</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>associativity</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Func pra calcular o indice pro RANDOM </p>
+<div class="fragment"><div class="line"><span class="lineno">  248</span>{ <span class="keywordflow">return</span> rand() % associativity; }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a675dca2b5f8519456d2fae02bda97c69" name="a675dca2b5f8519456d2fae02bda97c69"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a675dca2b5f8519456d2fae02bda97c69">&#9670;&#160;</a></span>handleCacheMiss()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void handleCacheMiss </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_cache.html">Cache</a> *</td>          <td class="paramname"><span class="paramname"><em>cache</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>tag</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *</td>          <td class="paramname"><span class="paramname"><em>emptySlot</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Funcao que trata o miss </p>
+<div class="fragment"><div class="line"><span class="lineno">  144</span>{</div>
+<div class="line"><span class="lineno">  145</span>    cache-&gt;<a class="code hl_variable" href="struct_cache.html#a6aec9f7ea482a935930e777e20649776">stats</a>.<a class="code hl_variable" href="struct_cache_stats.html#acb6b7e41e677928ff3ee0f9930319eee">misses</a>++;  <span class="comment">// Incrementa o contador total de misses</span></div>
+<div class="line"><span class="lineno">  146</span> </div>
+<div class="line"><span class="lineno">  147</span>    <a class="code hl_struct" href="struct_cache_set.html">CacheSet</a> *set = &amp;cache-&gt;<a class="code hl_variable" href="struct_cache.html#a71fa600fdf526ffd1395b4e582b1a873">sets</a>[index]; <span class="comment">// Pega o conjunto correspondente, com base no indice</span></div>
+<div class="line"><span class="lineno">  148</span>    <span class="keywordtype">int</span> replaceIndex; <span class="comment">// Indice do bloco que sera substituido</span></div>
+<div class="line"><span class="lineno">  149</span> </div>
+<div class="line"><span class="lineno">  150</span>    <span class="keywordflow">if</span> (*emptySlot != -1) <span class="comment">// Se tiver um bloco invalido, usa ele (foi calculado no isHit)</span></div>
+<div class="line"><span class="lineno">  151</span>    {</div>
+<div class="line"><span class="lineno">  152</span>        replaceIndex = *emptySlot; <span class="comment">// entao o bloco a ser substituido eh o bloco invalido</span></div>
+<div class="line"><span class="lineno">  153</span>        cache-&gt;<a class="code hl_variable" href="struct_cache.html#a6aec9f7ea482a935930e777e20649776">stats</a>.<a class="code hl_variable" href="struct_cache_stats.html#ab24c89faa0a824f37f9daea2cddd9ce2">compulsory</a>++; <span class="comment">// Incrementa o contador de misses compulsorios</span></div>
+<div class="line"><span class="lineno">  154</span>    }</div>
+<div class="line"><span class="lineno">  155</span>    <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  156</span>    {</div>
+<div class="line"><span class="lineno">  157</span>        replaceIndex = cache-&gt;<a class="code hl_variable" href="struct_cache.html#a81840efb36de79428b876b10f6a7fc31">replacementPolicy</a>(set, cache-&gt;<a class="code hl_variable" href="struct_cache.html#a88f015d183dc01dbcf6e71590fad2794">associativity</a>); <span class="comment">// Calcula o indice do bloco a ser substituido</span></div>
+<div class="line"><span class="lineno">  158</span> </div>
+<div class="line"><span class="lineno">  159</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="#a84217387422a2a3dcd79bc90a9a0255a">cacheIsFull</a>(cache)) <span class="comment">// Se a cache estiver cheia, eh um miss de capacidade</span></div>
+<div class="line"><span class="lineno">  160</span>            cache-&gt;<a class="code hl_variable" href="struct_cache.html#a6aec9f7ea482a935930e777e20649776">stats</a>.<a class="code hl_variable" href="struct_cache_stats.html#adbe66a087ac3fd4a5b0566f64ca2d12b">capacity</a>++;</div>
+<div class="line"><span class="lineno">  161</span>        <span class="keywordflow">else</span>                    <span class="comment">// Se nao, eh um miss de conflito</span></div>
+<div class="line"><span class="lineno">  162</span>            cache-&gt;<a class="code hl_variable" href="struct_cache.html#a6aec9f7ea482a935930e777e20649776">stats</a>.<a class="code hl_variable" href="struct_cache_stats.html#ab3d24ca365cba537ea08cbb4abee5b9c">conflict</a>++;</div>
+<div class="line"><span class="lineno">  163</span>    }</div>
+<div class="line"><span class="lineno">  164</span> </div>
+<div class="line"><span class="lineno">  165</span>    <span class="comment">// Atualiza o bloco que sera substituido</span></div>
+<div class="line"><span class="lineno">  166</span>    set-&gt;<a class="code hl_variable" href="struct_cache_set.html#a92b1d8d78e7b7bc59dc75ebe0f14ab5e">blocks</a>[replaceIndex].<a class="code hl_variable" href="struct_cache_block.html#a28e3c179a86f337095088b3ca02a2b2a">valid</a> = <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  167</span>    set-&gt;<a class="code hl_variable" href="struct_cache_set.html#a92b1d8d78e7b7bc59dc75ebe0f14ab5e">blocks</a>[replaceIndex].<a class="code hl_variable" href="struct_cache_block.html#a1c50fcd1195659821729f52af8f3bb7d">tag</a> = tag;</div>
+<div class="line"><span class="lineno">  168</span>    set-&gt;<a class="code hl_variable" href="struct_cache_set.html#a92b1d8d78e7b7bc59dc75ebe0f14ab5e">blocks</a>[replaceIndex].<a class="code hl_variable" href="struct_cache_block.html#aa3495b6da1dbb826e54e49b4d90d7efb">lastAccess</a> = cache-&gt;<a class="code hl_variable" href="struct_cache.html#a6aec9f7ea482a935930e777e20649776">stats</a>.<a class="code hl_variable" href="struct_cache_stats.html#aa553bf9abfd2a12610aed3ec352cd07d">totalAccesses</a>;</div>
+<div class="line"><span class="lineno">  169</span>    set-&gt;<a class="code hl_variable" href="struct_cache_set.html#a92b1d8d78e7b7bc59dc75ebe0f14ab5e">blocks</a>[replaceIndex].<a class="code hl_variable" href="struct_cache_block.html#aed1c43a52f61ca64c74ab7ca3db0d760">insertionTime</a> = cache-&gt;<a class="code hl_variable" href="struct_cache.html#a6aec9f7ea482a935930e777e20649776">stats</a>.<a class="code hl_variable" href="struct_cache_stats.html#aa553bf9abfd2a12610aed3ec352cd07d">totalAccesses</a>;</div>
+<div class="line"><span class="lineno">  170</span>}</div>
+<div class="ttc" id="acache_8c_html_a84217387422a2a3dcd79bc90a9a0255a"><div class="ttname"><a href="#a84217387422a2a3dcd79bc90a9a0255a">cacheIsFull</a></div><div class="ttdeci">bool cacheIsFull(Cache *cache)</div><div class="ttdef"><b>Definição</b> cache.c:287</div></div>
+<div class="ttc" id="astruct_cache_stats_html_aa553bf9abfd2a12610aed3ec352cd07d"><div class="ttname"><a href="struct_cache_stats.html#aa553bf9abfd2a12610aed3ec352cd07d">CacheStats::totalAccesses</a></div><div class="ttdeci">int totalAccesses</div><div class="ttdef"><b>Definição</b> cache.h:38</div></div>
+<div class="ttc" id="astruct_cache_stats_html_ab24c89faa0a824f37f9daea2cddd9ce2"><div class="ttname"><a href="struct_cache_stats.html#ab24c89faa0a824f37f9daea2cddd9ce2">CacheStats::compulsory</a></div><div class="ttdeci">int compulsory</div><div class="ttdef"><b>Definição</b> cache.h:35</div></div>
+<div class="ttc" id="astruct_cache_stats_html_ab3d24ca365cba537ea08cbb4abee5b9c"><div class="ttname"><a href="struct_cache_stats.html#ab3d24ca365cba537ea08cbb4abee5b9c">CacheStats::conflict</a></div><div class="ttdeci">int conflict</div><div class="ttdef"><b>Definição</b> cache.h:37</div></div>
+<div class="ttc" id="astruct_cache_stats_html_acb6b7e41e677928ff3ee0f9930319eee"><div class="ttname"><a href="struct_cache_stats.html#acb6b7e41e677928ff3ee0f9930319eee">CacheStats::misses</a></div><div class="ttdeci">int misses</div><div class="ttdef"><b>Definição</b> cache.h:34</div></div>
+<div class="ttc" id="astruct_cache_stats_html_adbe66a087ac3fd4a5b0566f64ca2d12b"><div class="ttname"><a href="struct_cache_stats.html#adbe66a087ac3fd4a5b0566f64ca2d12b">CacheStats::capacity</a></div><div class="ttdeci">int capacity</div><div class="ttdef"><b>Definição</b> cache.h:36</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a5c8770760f4767dd5dcd67d0f558b664" name="a5c8770760f4767dd5dcd67d0f558b664"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c8770760f4767dd5dcd67d0f558b664">&#9670;&#160;</a></span>isHit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool isHit </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_cache.html">Cache</a> *</td>          <td class="paramname"><span class="paramname"><em>cache</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>tag</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *</td>          <td class="paramname"><span class="paramname"><em>emptySlot</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Funcao para testar se o endereco eh um hit Retorna true caso seja, e false caso contrario </p>
+<div class="fragment"><div class="line"><span class="lineno">  123</span>{</div>
+<div class="line"><span class="lineno">  124</span>    <a class="code hl_struct" href="struct_cache_set.html">CacheSet</a> *set = &amp;cache-&gt;<a class="code hl_variable" href="struct_cache.html#a71fa600fdf526ffd1395b4e582b1a873">sets</a>[index]; <span class="comment">// Pega o conjunto correspondente, com base no indice</span></div>
+<div class="line"><span class="lineno">  125</span> </div>
+<div class="line"><span class="lineno">  126</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; cache-&gt;<a class="code hl_variable" href="struct_cache.html#a88f015d183dc01dbcf6e71590fad2794">associativity</a>; i++)</div>
+<div class="line"><span class="lineno">  127</span>    {</div>
+<div class="line"><span class="lineno">  128</span>        <span class="keywordflow">if</span> (set-&gt;<a class="code hl_variable" href="struct_cache_set.html#a92b1d8d78e7b7bc59dc75ebe0f14ab5e">blocks</a>[i].<a class="code hl_variable" href="struct_cache_block.html#a28e3c179a86f337095088b3ca02a2b2a">valid</a> &amp;&amp; set-&gt;<a class="code hl_variable" href="struct_cache_set.html#a92b1d8d78e7b7bc59dc75ebe0f14ab5e">blocks</a>[i].<a class="code hl_variable" href="struct_cache_block.html#a1c50fcd1195659821729f52af8f3bb7d">tag</a> == tag) <span class="comment">// compara pra ver se eh valido e a tag eh igual a tag calculada</span></div>
+<div class="line"><span class="lineno">  129</span>        {</div>
+<div class="line"><span class="lineno">  130</span>            set-&gt;<a class="code hl_variable" href="struct_cache_set.html#a92b1d8d78e7b7bc59dc75ebe0f14ab5e">blocks</a>[i].<a class="code hl_variable" href="struct_cache_block.html#aa3495b6da1dbb826e54e49b4d90d7efb">lastAccess</a> = cache-&gt;<a class="code hl_variable" href="struct_cache.html#a6aec9f7ea482a935930e777e20649776">stats</a>.<a class="code hl_variable" href="struct_cache_stats.html#aa553bf9abfd2a12610aed3ec352cd07d">totalAccesses</a>; <span class="comment">// Atualiza o tempo de acesso do bloco (LRU)</span></div>
+<div class="line"><span class="lineno">  131</span>            <span class="keywordflow">return</span> <span class="keyword">true</span>;                                            <span class="comment">// Retorna true se for hit</span></div>
+<div class="line"><span class="lineno">  132</span>        }</div>
+<div class="line"><span class="lineno">  133</span>        <span class="keywordflow">if</span> (!set-&gt;<a class="code hl_variable" href="struct_cache_set.html#a92b1d8d78e7b7bc59dc75ebe0f14ab5e">blocks</a>[i].<a class="code hl_variable" href="struct_cache_block.html#a28e3c179a86f337095088b3ca02a2b2a">valid</a> &amp;&amp; (*emptySlot) == -1)</div>
+<div class="line"><span class="lineno">  134</span>            *emptySlot = i;  <span class="comment">// Atualiza o indice do bloco invalido</span></div>
+<div class="line"><span class="lineno">  135</span>    }</div>
+<div class="line"><span class="lineno">  136</span> </div>
+<div class="line"><span class="lineno">  137</span>    <span class="keywordflow">return</span> <span class="keyword">false</span>; <span class="comment">// Se nao achou nenhum bloco valido com a tag, entao nao eh hit</span></div>
+<div class="line"><span class="lineno">  138</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a0508b4d183abbd39278a56820f28952a" name="a0508b4d183abbd39278a56820f28952a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0508b4d183abbd39278a56820f28952a">&#9670;&#160;</a></span>isPowerOfTwo()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool isPowerOfTwo </td>
+          <td>(</td>
+          <td class="paramtype">const unsigned int</td>          <td class="paramname"><span class="paramname"><em>value</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>func pra ver se eh potencia de dois </p>
+<div class="fragment"><div class="line"><span class="lineno">  282</span>{ <span class="keywordflow">return</span> (value != 0) &amp;&amp; ((value &amp; (value - 1)) == 0); }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="aa88dc96326bdd8b9190f0d5bfff509e0" name="aa88dc96326bdd8b9190f0d5bfff509e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa88dc96326bdd8b9190f0d5bfff509e0">&#9670;&#160;</a></span>printStats()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void printStats </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_cache.html">Cache</a> *</td>          <td class="paramname"><span class="paramname"><em>cache</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>flag</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Func pra printar os stats conforme a flag </p>
+<div class="fragment"><div class="line"><span class="lineno">  254</span>{</div>
+<div class="line"><span class="lineno">  255</span>    <span class="keywordtype">float</span> hitRate = (float)cache-&gt;<a class="code hl_variable" href="struct_cache.html#a6aec9f7ea482a935930e777e20649776">stats</a>.<a class="code hl_variable" href="struct_cache_stats.html#a6eb4f6f645392a720b883b687918880f">hits</a> / cache-&gt;<a class="code hl_variable" href="struct_cache.html#a6aec9f7ea482a935930e777e20649776">stats</a>.<a class="code hl_variable" href="struct_cache_stats.html#aa553bf9abfd2a12610aed3ec352cd07d">totalAccesses</a>;</div>
+<div class="line"><span class="lineno">  256</span>    <span class="keywordtype">float</span> missRate = (float)cache-&gt;<a class="code hl_variable" href="struct_cache.html#a6aec9f7ea482a935930e777e20649776">stats</a>.<a class="code hl_variable" href="struct_cache_stats.html#acb6b7e41e677928ff3ee0f9930319eee">misses</a> / cache-&gt;<a class="code hl_variable" href="struct_cache.html#a6aec9f7ea482a935930e777e20649776">stats</a>.<a class="code hl_variable" href="struct_cache_stats.html#aa553bf9abfd2a12610aed3ec352cd07d">totalAccesses</a>;</div>
+<div class="line"><span class="lineno">  257</span>    <span class="keywordtype">float</span> compulsoryRate = (float)cache-&gt;<a class="code hl_variable" href="struct_cache.html#a6aec9f7ea482a935930e777e20649776">stats</a>.<a class="code hl_variable" href="struct_cache_stats.html#ab24c89faa0a824f37f9daea2cddd9ce2">compulsory</a> / cache-&gt;<a class="code hl_variable" href="struct_cache.html#a6aec9f7ea482a935930e777e20649776">stats</a>.<a class="code hl_variable" href="struct_cache_stats.html#acb6b7e41e677928ff3ee0f9930319eee">misses</a>;</div>
+<div class="line"><span class="lineno">  258</span>    <span class="keywordtype">float</span> capacityRate = (float)cache-&gt;<a class="code hl_variable" href="struct_cache.html#a6aec9f7ea482a935930e777e20649776">stats</a>.<a class="code hl_variable" href="struct_cache_stats.html#adbe66a087ac3fd4a5b0566f64ca2d12b">capacity</a> / cache-&gt;<a class="code hl_variable" href="struct_cache.html#a6aec9f7ea482a935930e777e20649776">stats</a>.<a class="code hl_variable" href="struct_cache_stats.html#acb6b7e41e677928ff3ee0f9930319eee">misses</a>;</div>
+<div class="line"><span class="lineno">  259</span>    <span class="keywordtype">float</span> conflictRate = (float)cache-&gt;<a class="code hl_variable" href="struct_cache.html#a6aec9f7ea482a935930e777e20649776">stats</a>.<a class="code hl_variable" href="struct_cache_stats.html#ab3d24ca365cba537ea08cbb4abee5b9c">conflict</a> / cache-&gt;<a class="code hl_variable" href="struct_cache.html#a6aec9f7ea482a935930e777e20649776">stats</a>.<a class="code hl_variable" href="struct_cache_stats.html#acb6b7e41e677928ff3ee0f9930319eee">misses</a>;</div>
+<div class="line"><span class="lineno">  260</span> </div>
+<div class="line"><span class="lineno">  261</span>    <span class="keywordflow">if</span> (flag == 0)</div>
+<div class="line"><span class="lineno">  262</span>    {</div>
+<div class="line"><span class="lineno">  263</span>        printf(<span class="stringliteral">&quot;Total de acessos: %d\n&quot;</span>, cache-&gt;<a class="code hl_variable" href="struct_cache.html#a6aec9f7ea482a935930e777e20649776">stats</a>.<a class="code hl_variable" href="struct_cache_stats.html#aa553bf9abfd2a12610aed3ec352cd07d">totalAccesses</a>);</div>
+<div class="line"><span class="lineno">  264</span>        printf(<span class="stringliteral">&quot;Total de hits: %d\n&quot;</span>, cache-&gt;<a class="code hl_variable" href="struct_cache.html#a6aec9f7ea482a935930e777e20649776">stats</a>.<a class="code hl_variable" href="struct_cache_stats.html#a6eb4f6f645392a720b883b687918880f">hits</a>);</div>
+<div class="line"><span class="lineno">  265</span>        printf(<span class="stringliteral">&quot;Total de misses: %d\n&quot;</span>, cache-&gt;<a class="code hl_variable" href="struct_cache.html#a6aec9f7ea482a935930e777e20649776">stats</a>.<a class="code hl_variable" href="struct_cache_stats.html#acb6b7e41e677928ff3ee0f9930319eee">misses</a>);</div>
+<div class="line"><span class="lineno">  266</span>        printf(<span class="stringliteral">&quot;Taxa de hits: %.4f\n&quot;</span>, hitRate);</div>
+<div class="line"><span class="lineno">  267</span>        printf(<span class="stringliteral">&quot;Taxa de misses: %.4f\n&quot;</span>, missRate);</div>
+<div class="line"><span class="lineno">  268</span>        printf(<span class="stringliteral">&quot;Taxa de misses compulsórios: %.2f\n&quot;</span>, compulsoryRate);</div>
+<div class="line"><span class="lineno">  269</span>        printf(<span class="stringliteral">&quot;Taxa de misses de capacidade: %.2f\n&quot;</span>, capacityRate);</div>
+<div class="line"><span class="lineno">  270</span>        printf(<span class="stringliteral">&quot;Taxa de misses de conflito: %.2f\n&quot;</span>, conflictRate);</div>
+<div class="line"><span class="lineno">  271</span>    }</div>
+<div class="line"><span class="lineno">  272</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (flag == 1)</div>
+<div class="line"><span class="lineno">  273</span>    {</div>
+<div class="line"><span class="lineno">  274</span>        printf(<span class="stringliteral">&quot;%d %.4f %.4f %.2f %.2f %.2f\n&quot;</span>, cache-&gt;<a class="code hl_variable" href="struct_cache.html#a6aec9f7ea482a935930e777e20649776">stats</a>.<a class="code hl_variable" href="struct_cache_stats.html#aa553bf9abfd2a12610aed3ec352cd07d">totalAccesses</a>, hitRate, missRate, compulsoryRate, capacityRate, conflictRate);</div>
+<div class="line"><span class="lineno">  275</span>    }</div>
+<div class="line"><span class="lineno">  276</span>}</div>
+<div class="ttc" id="astruct_cache_stats_html_a6eb4f6f645392a720b883b687918880f"><div class="ttname"><a href="struct_cache_stats.html#a6eb4f6f645392a720b883b687918880f">CacheStats::hits</a></div><div class="ttdeci">int hits</div><div class="ttdef"><b>Definição</b> cache.h:33</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ac222e9ce797a3b795df6772cb54b515c" name="ac222e9ce797a3b795df6772cb54b515c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac222e9ce797a3b795df6772cb54b515c">&#9670;&#160;</a></span>processAddress()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void processAddress </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_cache.html">Cache</a> *</td>          <td class="paramname"><span class="paramname"><em>cache</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const uint32_t</td>          <td class="paramname"><span class="paramname"><em>address</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Func que processa o endereco </p>
+<div class="fragment"><div class="line"><span class="lineno">  177</span>{</div>
+<div class="line"><span class="lineno">  178</span>    <span class="comment">// calculo dos bits de offset e index com log2</span></div>
+<div class="line"><span class="lineno">  179</span>    <span class="keywordtype">int</span> offsetBits = log2(cache-&gt;<a class="code hl_variable" href="struct_cache.html#a4aaa73e329d20f35039fa5cdd2e6f648">blockSize</a>);</div>
+<div class="line"><span class="lineno">  180</span>    <span class="keywordtype">int</span> indexBits = log2(cache-&gt;<a class="code hl_variable" href="struct_cache.html#ae0d726f1d0bbf6e8fcc811b03e40b8c9">numSets</a>);</div>
+<div class="line"><span class="lineno">  181</span>    <span class="comment">// Calculo da tag com base no pseudo codigo fornecido</span></div>
+<div class="line"><span class="lineno">  182</span>    uint32_t tag = address &gt;&gt; (offsetBits + indexBits);</div>
+<div class="line"><span class="lineno">  183</span>    uint32_t index = (address &gt;&gt; offsetBits) &amp; ((1 &lt;&lt; indexBits) - 1);</div>
+<div class="line"><span class="lineno">  184</span> </div>
+<div class="line"><span class="lineno">  185</span>    <span class="keywordtype">bool</span> hit = <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  186</span>    <span class="keywordtype">int</span> emptySlot = -1;</div>
+<div class="line"><span class="lineno">  187</span> </div>
+<div class="line"><span class="lineno">  188</span>    <span class="keywordflow">if</span> (<a class="code hl_function" href="#a5c8770760f4767dd5dcd67d0f558b664">isHit</a>(cache, tag, index, &amp;emptySlot) ) <span class="comment">// se for hit incrementa o contador dos hits</span></div>
+<div class="line"><span class="lineno">  189</span>        cache-&gt;<a class="code hl_variable" href="struct_cache.html#a6aec9f7ea482a935930e777e20649776">stats</a>.<a class="code hl_variable" href="struct_cache_stats.html#a6eb4f6f645392a720b883b687918880f">hits</a>++;</div>
+<div class="line"><span class="lineno">  190</span>    <span class="keywordflow">else</span> <span class="comment">// se nao, trata a falta</span></div>
+<div class="line"><span class="lineno">  191</span>        <a class="code hl_function" href="#a675dca2b5f8519456d2fae02bda97c69">handleCacheMiss</a>(cache, tag, index, &amp;emptySlot);</div>
+<div class="line"><span class="lineno">  192</span> </div>
+<div class="line"><span class="lineno">  193</span>    cache-&gt;<a class="code hl_variable" href="struct_cache.html#a6aec9f7ea482a935930e777e20649776">stats</a>.<a class="code hl_variable" href="struct_cache_stats.html#aa553bf9abfd2a12610aed3ec352cd07d">totalAccesses</a>++; <span class="comment">// incrementa o total de acessos</span></div>
+<div class="line"><span class="lineno">  194</span>}</div>
+<div class="ttc" id="acache_8c_html_a5c8770760f4767dd5dcd67d0f558b664"><div class="ttname"><a href="#a5c8770760f4767dd5dcd67d0f558b664">isHit</a></div><div class="ttdeci">bool isHit(Cache *cache, uint32_t tag, uint32_t index, int *emptySlot)</div><div class="ttdef"><b>Definição</b> cache.c:122</div></div>
+<div class="ttc" id="acache_8c_html_a675dca2b5f8519456d2fae02bda97c69"><div class="ttname"><a href="#a675dca2b5f8519456d2fae02bda97c69">handleCacheMiss</a></div><div class="ttdeci">void handleCacheMiss(Cache *cache, uint32_t tag, uint32_t index, int *emptySlot)</div><div class="ttdef"><b>Definição</b> cache.c:143</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a99de570dfd28741d6cc1eafd956aac3f" name="a99de570dfd28741d6cc1eafd956aac3f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99de570dfd28741d6cc1eafd956aac3f">&#9670;&#160;</a></span>readFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void readFile </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_cache.html">Cache</a> *</td>          <td class="paramname"><span class="paramname"><em>cache</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>filename</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>le o arquivo e processa os enderecos </p>
+<div class="fragment"><div class="line"><span class="lineno">  100</span>{</div>
+<div class="line"><span class="lineno">  101</span>    FILE *file = fopen(filename, <span class="stringliteral">&quot;rb&quot;</span>);</div>
+<div class="line"><span class="lineno">  102</span>    <span class="keywordflow">if</span> (!file)</div>
+<div class="line"><span class="lineno">  103</span>    {</div>
+<div class="line"><span class="lineno">  104</span>        printf(<span class="stringliteral">&quot;ERRO: Não foi possível abrir o arquivo %s\n&quot;</span>, filename);</div>
+<div class="line"><span class="lineno">  105</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  106</span>    }</div>
+<div class="line"><span class="lineno">  107</span> </div>
+<div class="line"><span class="lineno">  108</span>    uint32_t address;</div>
+<div class="line"><span class="lineno">  109</span>    <span class="keywordflow">while</span> (fread(&amp;address, <span class="keyword">sizeof</span>(uint32_t), 1, file) == 1)</div>
+<div class="line"><span class="lineno">  110</span>    {</div>
+<div class="line"><span class="lineno">  111</span>        address = __builtin_bswap32(address); <span class="comment">// converte para big endian</span></div>
+<div class="line"><span class="lineno">  112</span>        <a class="code hl_function" href="#ac222e9ce797a3b795df6772cb54b515c">processAddress</a>(cache, address);       <span class="comment">// processa o endereco</span></div>
+<div class="line"><span class="lineno">  113</span>    }</div>
+<div class="line"><span class="lineno">  114</span> </div>
+<div class="line"><span class="lineno">  115</span>    fclose(file);</div>
+<div class="line"><span class="lineno">  116</span>}</div>
+<div class="ttc" id="acache_8c_html_ac222e9ce797a3b795df6772cb54b515c"><div class="ttname"><a href="#ac222e9ce797a3b795df6772cb54b515c">processAddress</a></div><div class="ttdeci">void processAddress(Cache *cache, const uint32_t address)</div><div class="ttdef"><b>Definição</b> cache.c:176</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Gerado por&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
+</small></address>
+</div><!-- doc-content -->
+</body>
+</html>
