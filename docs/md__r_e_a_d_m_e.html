@@ -90,19 +90,26 @@ $(function(){ initResizable(false); });
 <div class="textblock"><p><a class="anchor" id="autotoc_md0"></a></p>
 <p>Este projeto é um simulador de cache que permite a simulação de diferentes configurações de cache, utilizando parâmetros como número de conjuntos, tamanho de bloco, associatividade, política de substituição, e um arquivo de entrada para simulação.</p>
 <h1><a class="anchor" id="autotoc_md1"></a>
+Features</h1>
+<p>Este simulador permite os três tipos mais utilizados de substituição, sendo eles:</p><ul>
+<li><code>LRU</code>: Troca o bloco utilizado a mais tempo (Last Recent Used)</li>
+<li><code>FIFO</code>: Troca o bloco inserido primeiro, conforme uma fila (First In First Out)</li>
+<li><code>RANDOM</code>: Este algoritmo é aleatório, e troca de forma aleatória o bloco, podendo alterar a cada execução diferente</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md2"></a>
 Estrutura do Projeto</h1>
 <ul>
 <li><code><a class="el" href="cache_8h.html">cache.h</a></code>: Contém as definições de structs e declarações de funções.</li>
 <li><code><a class="el" href="cache_8c.html">cache.c</a></code>: Implementação das funções relacionadas à cache.</li>
-<li><code>cache_simulator</code>: Código principal que executa o simulador (é nosso main).</li>
+<li><code><a class="el" href="cache__simulator_8c.html">cache_simulator.c</a></code>: Código principal que executa o simulador (é nosso main).</li>
 <li><code>Makefile</code>: Um arquivo opcional para facilitar a compilação do projeto.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md2"></a>
+<h1><a class="anchor" id="autotoc_md3"></a>
 Compilação</h1>
 <p>Para compilar o projeto, utilize o seguinte comando no terminal:</p>
 <div class="fragment"><div class="line">gcc -o cache_simulator cache_simulator.c cache.c -lm</div>
 </div><!-- fragment --><p> Caso seja usado o Makefile simplesmente rodar o comando </p><div class="fragment"><div class="line">make</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md3"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md4"></a>
 Execução</h1>
 <p>Para executar o código no linux use algo deste tipo:</p><ul>
 <li><code>./cache_simulator &lt;nsets&gt; &lt;bsize&gt; &lt;assoc&gt; &lt;substituição&gt; &lt;flag_saida&gt; arquivo_de_entrada</code></li>
@@ -111,11 +118,11 @@ Execução</h1>
 Para executar o código no Windows use algo assim:</p><ul>
 <li><code>.\cache_simulator &lt;nsets&gt; &lt;bsize&gt; &lt;assoc&gt; &lt;substituição&gt; &lt;flag_saida&gt; arquivo_de_entrada</code></li>
 </ul>
-<h1><a class="anchor" id="autotoc_md4"></a>
+<h1><a class="anchor" id="autotoc_md5"></a>
 Arquivos de Benchmark</h1>
 <p>Os arquivos de benchmark estão disponiveis dentro da pasta Benchmarks <br  />
  Utilize somente arquivos binarios para execução.</p>
-<h1><a class="anchor" id="autotoc_md5"></a>
+<h1><a class="anchor" id="autotoc_md6"></a>
 Autores</h1>
 <p><a href="https://github.com/ChristianKringel" target="_blank">Christian Kringel</a> <br  />
 <a href="https://github.com/Ravazolo88" target="_blank">Pedro Ravazolo</a> </p>
