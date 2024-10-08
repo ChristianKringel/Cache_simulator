@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    Cache *cache = initializeCache(nsets, bsize, assoc, subst);
+    Cache *cache = createCacheWithPolicy(nsets, bsize, assoc, subst);
     if (cache == NULL)
         return 1;
 
