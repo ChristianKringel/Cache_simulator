@@ -2,11 +2,17 @@
 
 Este projeto é um simulador de cache que permite a simulação de diferentes configurações de cache, utilizando parâmetros como número de conjuntos, tamanho de bloco, associatividade, política de substituição, e um arquivo de entrada para simulação.
 
+## Features
+Este simulador permite os três tipos mais utilizados de substituição, sendo eles: 
+- `LRU`: Troca o bloco utilizado a mais tempo (Last Recent Used) 
+- `FIFO`: Troca o bloco inserido primeiro, conforme uma fila (First In First Out)
+- `RANDOM`: Este algoritmo é aleatório, e troca de forma aleatória o bloco, podendo alterar a cada execução diferente
+
 ## Estrutura do Projeto
 
 - `cache.h`: Contém as definições de structs e declarações de funções.
 - `cache.c`: Implementação das funções relacionadas à cache.
-- `cache_simulator`: Código principal que executa o simulador (é nosso main).
+- `cache_simulator.c`: Código principal que executa o simulador (é nosso main).
 - `Makefile`: Um arquivo opcional para facilitar a compilação do projeto.
 
 ## Compilação
