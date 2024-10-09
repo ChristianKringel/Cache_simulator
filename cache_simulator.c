@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
     if (cache == NULL)
         return 1;
 
-    readFile(cache, filename);
+    readFile(cache, filename); // 
     printStats(cache, flag);
     freeCache(cache);
 

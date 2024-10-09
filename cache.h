@@ -54,16 +54,16 @@ typedef struct {
 // Declaracao das funcoes utilizadas
 Cache* createCacheWithPolicy(int numSets, int blockSize, int associativity, char policyChar);
 void freeCache(Cache *cache);
+void readFile(Cache *cache, const char *filename);
 void processAddress(Cache *cache, const uint32_t address);
+bool isHit(Cache *cache, uint32_t tag, uint32_t index, int *emptySlot);
+void handleCacheMiss(Cache *cache, uint32_t tag, uint32_t index, int *emptySlot);
 int getLRUIndex(CacheSet *set, int associativity);
 int getFIFOIndex(CacheSet *set, int associativity);
 int getRandomIndex(CacheSet *set, int associativity);
-void readFile(Cache *cache, const char *filename);
 void printStats(Cache *cache, const int flag);
 bool isPowerOfTwo(unsigned int value);
 bool cacheIsFull(Cache *cache);
-bool isHit(Cache *cache, uint32_t tag, uint32_t index, int *emptySlot);
-void handleCacheMiss(Cache *cache, uint32_t tag, uint32_t index, int *emptySlot);
 
 #endif
 

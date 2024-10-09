@@ -198,7 +198,7 @@ html {
     color-scheme: dark;
 
 /* page base colors */
---page-background-color: black;
+--page-background-color: rgb(20, 20, 20);
 --page-foreground-color: #C9D1D9;
 --page-link-color: #90A5CE;
 --page-visited-link-color: #A3B4D7;
