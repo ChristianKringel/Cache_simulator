@@ -115,6 +115,28 @@ void readFile(Cache *cache, const char *filename)
     fclose(file);
 }
 
+/** 
+ * Func que processa o endereco
+ */
+void processAddress(Cache *cache, const uint32_t address)
+{
+    // calculo dos bits de offset e index com log2
+    int offsetBits = log2(cache->blockSize);
+    int indexBits = log2(cache->numSets);
+    // Calculo da tag com base no pseudo codigo fornecido
+    uint32_t tag = address >> (offsetBits + indexBits);
+    uint32_t index = (address >> offsetBits) & ((1 << indexBits) - 1);
+
+    int emptySlot = -1;
+
+    if (isHit(cache, tag, index, &emptySlot) ) // se for hit incrementa o contador dos hits
+        cache->stats.hits++;
+    else // se nao, trata a falta
+        handleCacheMiss(cache, tag, index, &emptySlot);
+
+    cache->stats.totalAccesses++; // incrementa o total de acessos
+}
+
 /**
  * Funcao para testar se o endereco eh um hit
  * Retorna true caso seja, e false caso contrario 
@@ -167,30 +189,6 @@ void handleCacheMiss(Cache *cache, uint32_t tag, uint32_t index, int *emptySlot)
     set->blocks[replaceIndex].tag = tag;
     set->blocks[replaceIndex].lastAccess = cache->stats.totalAccesses;
     set->blocks[replaceIndex].insertionTime = cache->stats.totalAccesses;
-}
-
-
-/** 
- * Func que processa o endereco
- */
-void processAddress(Cache *cache, const uint32_t address)
-{
-    // calculo dos bits de offset e index com log2
-    int offsetBits = log2(cache->blockSize);
-    int indexBits = log2(cache->numSets);
-    // Calculo da tag com base no pseudo codigo fornecido
-    uint32_t tag = address >> (offsetBits + indexBits);
-    uint32_t index = (address >> offsetBits) & ((1 << indexBits) - 1);
-
-    bool hit = false;
-    int emptySlot = -1;
-
-    if (isHit(cache, tag, index, &emptySlot) ) // se for hit incrementa o contador dos hits
-        cache->stats.hits++;
-    else // se nao, trata a falta
-        handleCacheMiss(cache, tag, index, &emptySlot);
-
-    cache->stats.totalAccesses++; // incrementa o total de acessos
 }
 
 /**
@@ -265,7 +263,7 @@ void printStats(Cache *cache, int flag)
         printf("Total de misses: %d\n", cache->stats.misses);
         printf("Taxa de hits: %.4f\n", hitRate);
         printf("Taxa de misses: %.4f\n", missRate);
-        printf("Taxa de misses compulsórios: %.2f\n", compulsoryRate);
+        printf("Taxa de misses compulsorios: %.2f\n", compulsoryRate);
         printf("Taxa de misses de capacidade: %.2f\n", capacityRate);
         printf("Taxa de misses de conflito: %.2f\n", conflictRate);
     }
